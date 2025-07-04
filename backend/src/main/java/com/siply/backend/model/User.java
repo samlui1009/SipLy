@@ -1,0 +1,84 @@
+package com.siply.backend.model;
+
+import java.util.ArrayList;
+
+public class User {
+    private String name;
+    private int age;
+    private int weight;
+    private String gender;
+    private HealthGoals healthGoals;
+    private BeverageLog bevLog;
+
+    public User() {
+        // Generic constructor
+    }
+
+    public User(String name, int age, int weight, String gender) {
+        this.name = name;
+        this.age = age;
+        this.weight = weight;
+        this.gender = gender;
+        this.healthGoals = new HealthGoals(0, 0, 0);
+        this.bevLog = new BeverageLog();
+    }
+    
+    // getter
+    public String getName() {
+        return name;
+    }
+
+    // getter
+    public int getAge() {
+        return age;
+    }
+
+    // getter
+    public int getWeight() {
+        return weight;
+    }
+
+    // getter
+    public String getGender() {
+        return gender;
+    }
+
+    // getter
+    public HealthGoals getHealthGoals() {
+        return healthGoals;
+    }
+    
+    // getter
+    public BeverageLog getBeverageLog() {
+        return bevLog;
+    }
+
+        // setter
+    // MODIFIES: this
+    // EFFECTS: Updates the user's name to a different name if it changes
+    public void setUserName(String name) {
+        this.name = name;
+    }
+
+    // setter
+    // MODIFIES: this
+    // EFFECTS: Updates the user's weight to a different weight if it changes
+    public void setUserWeight(int wgt) {
+        this.weight = wgt;
+    }
+
+    // setter
+    // MODIFIES: this
+    // EFFECTS: Updates the user's gender to a different gender if it fluidly
+    // changes
+    public void setUserGender(String gen) {
+        this.gender = gen;
+    }
+
+    // setter
+    // MODIFIES: this
+    // EFFECTS: Updates the user's age to a different age if it changes
+    public void setUserAge(int age) {
+        this.age = age;
+    }
+}
