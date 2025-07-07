@@ -1,5 +1,7 @@
 package com.siply.backend.model;
 
+import com.siply.backend.model.exceptions.NegativeValueException;
+
 public class HealthGoals {
     private int maxCalories;
     private int maxSugar;
@@ -36,16 +38,25 @@ public class HealthGoals {
 
     // setter
     public void setMaxCalories(int newCal) {
+        if (newCal < 0) {
+            throw new NegativeValueException("This");
+        }
         this.maxCalories = newCal;
     }
 
     // setter
     public void setMaxSugar(int newSug) {
+        if (newSug < 0) {
+            throw new NegativeValueException("This");
+        }
         this.maxSugar = newSug;
     }
 
     // setter
     public void setMaxCaffeine(int newCaffe) {
+        if (newCaffe < 0) {
+            throw new NegativeValueException("This");
+        }
         this.maxCaffeine = newCaffe;
     }
 

@@ -57,6 +57,18 @@ public class BeverageLog {
         return false;
     }
 
+    // REQUIRES: Beverage must be found in the user's list 
+    // EFFECTS: Returns back the beverage from list of beverages if there is a corresponding match
+    // to the name, otherwise, return null
+    public Beverage getBeverageByName(String name) {
+        for (Beverage b : this.dailyBeverages) {
+            if (b.getName() == name) {
+                return b;
+            }
+        }
+        return null;
+    }
+
     // REQUIRES: A beverage must be found in the user's list
     // MODIFIES: this
     // EFFECTS: If a user drinks the beverage again, it updates the total

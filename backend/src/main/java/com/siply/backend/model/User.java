@@ -2,6 +2,9 @@ package com.siply.backend.model;
 
 import java.util.ArrayList;
 
+import com.siply.backend.model.exceptions.InvalidInputException;
+import com.siply.backend.model.exceptions.NegativeValueException;
+
 public class User {
     private String name;
     private int age;
@@ -57,6 +60,9 @@ public class User {
     // MODIFIES: this
     // EFFECTS: Updates the user's name to a different name if it changes
     public void setUserName(String name) {
+        if (name.length() < 0) {
+            throw new InvalidInputException();
+        }
         this.name = name;
     }
 
@@ -64,6 +70,9 @@ public class User {
     // MODIFIES: this
     // EFFECTS: Updates the user's weight to a different weight if it changes
     public void setUserWeight(int wgt) {
+        if (wgt < 0) {
+            throw new NegativeValueException("This");
+        }
         this.weight = wgt;
     }
 
@@ -79,6 +88,9 @@ public class User {
     // MODIFIES: this
     // EFFECTS: Updates the user's age to a different age if it changes
     public void setUserAge(int age) {
+        if (age < 0) {
+            throw new NegativeValueException("This");
+        }
         this.age = age;
     }
 }
