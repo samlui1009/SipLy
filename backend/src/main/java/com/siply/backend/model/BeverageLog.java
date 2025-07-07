@@ -2,6 +2,7 @@ package com.siply.backend.model;
 
 import jakarta.persistence.*;
 
+import java.util.List;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -11,8 +12,9 @@ public class BeverageLog {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    private ArrayList<Beverage> dailyBeverages;
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "bev_log_id")
+    private List<Beverage> dailyBeverages = new ArrayList<>();
 
     private boolean status;
     private int totalSugar;

@@ -20,7 +20,7 @@ public class UserController {
     }
 
     // Returns back a User JSON object
-    @GetMapping("/{id}")
+    @GetMapping("/get-user/{id}")
     public ResponseEntity<User> getUserById(@PathVariable Long id) {
         return userRepository.findById(id).map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
     }
@@ -32,7 +32,7 @@ public class UserController {
     }
 
     // Performs update for the daily sugar intake
-    @PutMapping("/update/name/{id}/{newName}")
+    @PutMapping("/update-name/{id}/{newName}")
     public ResponseEntity<String> updateName(@PathVariable Long id, @PathVariable String newName) {
         return userRepository.findById(id).map(user -> {
             user.setUserName(newName);
@@ -41,7 +41,7 @@ public class UserController {
         }).orElse(ResponseEntity.notFound().build());
     }
 
-    @PutMapping("/update/weight/{id}/{newWgt}")
+    @PutMapping("/update-weight/{id}/{newWgt}")
     public ResponseEntity<String> updateWeight(@PathVariable Long id, @PathVariable int newWgt) {
         return userRepository.findById(id).map(user -> {
             user.setUserWeight(newWgt);
@@ -50,7 +50,7 @@ public class UserController {
         }).orElse(ResponseEntity.notFound().build());
     }
 
-    @PutMapping("/update/gender/{id}/{newGen}")
+    @PutMapping("/update-gender/{id}/{newGen}")
     public ResponseEntity<String> updateGender(@PathVariable Long id, @PathVariable String newGen) {
         return userRepository.findById(id).map(user -> {
             user.setUserGender(newGen);
@@ -59,7 +59,7 @@ public class UserController {
         }).orElse(ResponseEntity.notFound().build());
     }
 
-    @PutMapping("/update/age/{newAge}")
+    @PutMapping("/update-age/{id}/{newAge}")
     public ResponseEntity<String> updateAge(@PathVariable Long id, @PathVariable int newAge) {
         return userRepository.findById(id).map(user -> {
             user.setUserAge(newAge);;

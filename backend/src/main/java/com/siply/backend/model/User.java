@@ -1,12 +1,12 @@
 package com.siply.backend.model;
 
-import java.util.ArrayList;
 import jakarta.persistence.*;
 
 import com.siply.backend.model.exceptions.InvalidInputException;
 import com.siply.backend.model.exceptions.NegativeValueException;
 
 @Entity
+@Table(name = "app_user")
 public class User {
 
     @Id

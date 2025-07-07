@@ -18,9 +18,10 @@ public class SiplyApplication {
     @Bean
     public CommandLineRunner runner(UserRepository userRepository) {
         return args -> {
-            User sam = new User("Sam", 31, 135, "Female");
-            userRepository.save(sam);
-        }
+            if (userRepository.count() == 0) {
+                User sam = new User("Sam", 31, 135, "Female");
+                userRepository.save(sam);    
+            }
+        };
     }
-
 }
