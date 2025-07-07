@@ -1,9 +1,16 @@
 package com.siply.backend.model;
 
+import jakarta.persistence.*;
 import com.siply.backend.model.exceptions.NegativeValueException;
 
+@Entity
 public class Beverage {
 
+    @Id
+    // Make a table called "Beverage", using the "ID" as the primary key 
+    // ID will be generated automatically
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     // Recall: Fields/attributes to be used
     private String name;
     private int volume;

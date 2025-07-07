@@ -1,12 +1,17 @@
 package com.siply.backend.model;
 
+import jakarta.persistence.*;
 import com.siply.backend.model.exceptions.NegativeValueException;
 
+@Entity
 public class HealthGoals {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
     private int maxCalories;
     private int maxSugar;
     private int maxCaffeine;
-
 
     public HealthGoals() {
         // Generic constructor

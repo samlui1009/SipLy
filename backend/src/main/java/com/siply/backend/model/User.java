@@ -1,16 +1,26 @@
 package com.siply.backend.model;
 
 import java.util.ArrayList;
+import jakarta.persistence.*;
 
 import com.siply.backend.model.exceptions.InvalidInputException;
 import com.siply.backend.model.exceptions.NegativeValueException;
 
+@Entity
 public class User {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
     private String name;
     private int age;
     private int weight;
     private String gender;
+
+    @OneToOne(cascade = CascadeType.ALL)
     private HealthGoals healthGoals;
+    @OneToOne(cascade = CascadeType.ALL)
     private BeverageLog bevLog;
 
     public User() {

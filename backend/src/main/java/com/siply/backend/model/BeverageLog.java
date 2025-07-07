@@ -1,10 +1,17 @@
 package com.siply.backend.model;
 
+import jakarta.persistence.*;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 
+@Entity
 public class BeverageLog {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
+    @OneToMany(cascade = CascadeType.ALL)
     private ArrayList<Beverage> dailyBeverages;
 
     private boolean status;
