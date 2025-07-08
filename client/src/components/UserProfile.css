@@ -1,0 +1,35 @@
+@import url('https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&display=swap');
+
+.profile-container {
+    font-family: 'Pixelify Sans', sans-serif;
+    background-color: rgb(251, 255, 255);
+    border: 2.5px solid #6cd1e0;
+    height: 350px;
+    border-radius: 25px;
+    margin: 25px;
+}
+
+.profile-content {
+    text-align: center;
+}
+
+.profile-pic {
+    width: 50px;
+    height: 50px;
+}
+
+.profile-demographics {
+    list-style: none;
+    font-size: 20px;
+    padding: 10px;
+}
+
+.edit-button {
+    font-family: "Pixelify Sans", sans-serif;
+    font-size: 20px;
+    border: none;
+    background-color: #6cd1e0;
+    border-radius: 25px;
+    margin-bottom: 5px;
+    cursor: pointer;
+}

@@ -1,0 +1,8 @@
+.daily-log-container {
+    font-family: 'Pixelify Sans', sans-serif;
+    background-color: rgb(251, 255, 255);
+    border: 2.5px solid #b796e8;
+    border-radius: 25px;
+    margin: 25px;
+    text-align: center;
+}

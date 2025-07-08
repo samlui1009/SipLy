@@ -1,0 +1,24 @@
+.goals-container {
+    font-family: 'Pixelify Sans', sans-serif;
+    text-align: center;
+    background-color: rgb(251, 255, 255);
+    border: 2.5px solid #6cd1e0;
+    border-radius: 25px;
+    margin: 25px;
+}
+
+.button-options {
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
+    gap: 10px;
+}
+
+.button {
+    font-family: 'Pixelify Sans', sans-serif;
+    font-size: 20px;
+    border-radius: 25px;
+    border: none;
+    background-color: #6cd1e0;
+    cursor: pointer;
+}
