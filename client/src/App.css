@@ -16,11 +16,30 @@ body {
 
 .grid-container {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1.5fr 1fr;
+    /* Changes the "fraction" of how wide each column should take */
+    grid-template-rows: auto auto;
+    grid-template-areas: "profile beverages log" "happiness beverages progress";
+    /* Named layout map */
     gap: 2rem;
-    flex: 1;
     padding-bottom: 2rem;
     align-items: start;
+}
+
+.profile-panel {
+    grid-area: profile;
+}
+
+.add-bev-panel {
+    grid-area: beverages;
+}
+
+.daily-log-panel {
+    grid-area: log;
+}
+
+.daily-viz-panel {
+    grid-area: progress;
 }
 
 .site-footer {
