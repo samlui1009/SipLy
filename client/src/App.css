@@ -42,6 +42,10 @@ body {
     grid-area: progress;
 }
 
+.happiness-panel {
+    grid-area: happiness;
+}
+
 .site-footer {
     margin-top: auto;
     text-align: center;

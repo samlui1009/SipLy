@@ -5,6 +5,7 @@ import Footer from './components/Footer.jsx';
 import UserProfile from './components/UserProfile.jsx';
 import MainMenu from './components/MainMenu.jsx';
 import DailySummary from './components/DailySummary.jsx';
+import HappinessMeter from './components/HappinessMeter.jsx';
 import GoalsMenu from './components/HealthGoals.jsx';
 import DailyViz from './components/DailyVisualization.jsx';
 
@@ -25,6 +26,9 @@ function App() {
             </div>
             <div className="daily-log-panel">
                 <DailySummary></DailySummary>
+            </div>
+            <div className="happiness-panel">
+                <HappinessMeter></HappinessMeter>
             </div>
             <div className="update-goals-panel">
                 <GoalsMenu></GoalsMenu>
