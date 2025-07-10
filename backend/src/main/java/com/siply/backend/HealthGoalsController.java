@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-
+@CrossOrigin(origins = "http://localhost:5173")
 @RestController
 @RequestMapping("/api/health-goals")
 public class HealthGoalsController {
@@ -46,7 +46,7 @@ public class HealthGoalsController {
     }
 
     // Performs update for the daily sugar intake 
-    @PutMapping("/update/sugar/{id}/{amount}")
+    @PutMapping("/update-sugar/{id}/{amount}")
     public ResponseEntity<String> updateSugarGoal(@PathVariable Long id, @PathVariable int amount) {
         return userRepository.findById(id).map(user -> {
             user.getHealthGoals().setMaxSugar(amount);
@@ -55,7 +55,7 @@ public class HealthGoalsController {
         }).orElse(ResponseEntity.notFound().build());
     }
 
-    @PutMapping("/update/calories/{id}/{amount}")
+    @PutMapping("/update-calories/{id}/{amount}")
     public ResponseEntity<String> updateCalorieGoal(@PathVariable Long id, @PathVariable int amount) {
         return userRepository.findById(id).map(user -> {
             user.getHealthGoals().setMaxCalories(amount);
@@ -64,7 +64,7 @@ public class HealthGoalsController {
         }).orElse(ResponseEntity.notFound().build());
     }
 
-    @PutMapping("/update/caffeine/{id}/{amount}")
+    @PutMapping("/update-caffeine/{id}/{amount}")
     public ResponseEntity<String> updateCaffeineGoal(@PathVariable Long id, @PathVariable int amount) {
         return userRepository.findById(id).map(user -> {
             user.getHealthGoals().setMaxCaffeine(amount);
