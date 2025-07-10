@@ -1,10 +1,11 @@
+import { useState, useEffect } from 'react';
 import './MainMenu.css';
 
 function MainMenu() {
     return(
         <div className = "main-menu">
             <h1 className="title">☕︎ Record Beverages</h1>
-            <h4 className="quick-add-title">Quick Add</h4>
+            <h4 className="quick-add-title">Quick Add (250mL)</h4>
             <div className = "quick-add">
                 <button className="water">💧 Water</button>
                 <button className="coffee">☕ Coffee</button>

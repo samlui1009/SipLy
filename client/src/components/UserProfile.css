@@ -18,13 +18,13 @@
     height: 50px;
 }
 
-.profile-demographics {
+.profile-demographics, .edit-form {
     list-style: none;
     font-size: 20px;
     padding: 10px;
 }
 
-.edit-button {
+.edit-button, .finalize-button, .return-button {
     font-family: "Pixelify Sans", sans-serif;
     font-size: 20px;
     border: none;
@@ -32,4 +32,16 @@
     border-radius: 25px;
     margin-bottom: 5px;
     cursor: pointer;
+    opacity: 1;
+    transition: opacity 0.5s ease;
+}
+
+.edit-button:hover, .finalize-button:hover, .return-button:hover {
+    opacity: 0.8;
+}
+
+.edit-buttons {
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
 }
