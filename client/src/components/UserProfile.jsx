@@ -24,10 +24,43 @@ function UserProfile() {
 
     const handleSubmit =(e) => {
         e.preventDefault();
-        console.log("Form submitted!", form);
+        // Prevents default behaviour of a form submission, causing the page to refresh 
+        // This is necessary, especially for React projects so it doesn't reload the full thing!
+
+        fetch('http://localhost:8080/api/user/update-user/1', {
+            method:'PUT',
+            // Sends a PUT request to the backend to update the user with ID 1, mapping is from what we worked on prior
+            headers: {
+                'Content-Type':'application/json',
+            },
+            // We are sending JSON data in the request body
+            body: JSON.stringify(form),
+            // Converts the form state object into a JSON string, including details like the name, age, weight and gender
+        })
+        .then((res) => {
+            if (!res.ok) {
+                throw new Error("Failed to update the user");
+            }
+            // If the response was successful, then it parses JSON response from the user as seen below
+            // Otherwise, it should throw the error message
+            return res.json();
+        })
+        .then((updatedUser) => {
+            setUser(updatedUser);
+            setEditing(false);
+            setForm({
+                name:"",
+                age:"",
+                weight:"",
+                gender:""
+            })
+        })
+        // User State has to be updated
+        // Then, we exit the form and exit editing mode
+        .catch((err) => {
+            console.error("Error updating the user", err);
+        });
     };
-    // Bare-bone actions for now - A function that is needed to handle
-    // The form submission
     
     useEffect(() => {
         fetch('http://localhost:8080/api/user/get-user/1')
@@ -84,8 +117,8 @@ function UserProfile() {
                             />
                         </form>
                         <div className="edit-buttons">
-                            <button className="finalize-button">Finalize Information</button>
-                            <button className="return-button">Go Back</button>
+                            <button className="finalize-button" onClick={(handleSubmit)}>Finalize Information</button>
+                            <button className="return-button" onClick={() => setEditing(false)}>Go Back</button>
                         </div>
                     </div>
                 )}

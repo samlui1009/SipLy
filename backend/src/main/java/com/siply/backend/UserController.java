@@ -1,6 +1,9 @@
 package com.siply.backend;
 
 import com.siply.backend.repository.UserRepository;
+
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.siply.backend.model.User;
@@ -30,6 +33,26 @@ public class UserController {
     public ResponseEntity<User> createUser(@RequestBody User user) {
         User savedUser = userRepository.save(user);
         return ResponseEntity.ok(savedUser);
+    }
+
+    @PutMapping("/update-user/{id}")
+    public User updateUser(@PathVariable Long id, @RequestBody User updatedUser) {
+        Optional<User> userToFind = userRepository.findById(id);
+        // Optional is necessary - It is a "safer" way to handle nulls, just in case
+        // We are unable to find the user that we want
+        if (userToFind.isPresent()) {
+            User foundUser = userToFind.get();
+            // Gets back the user 
+            foundUser.setUserName(updatedUser.getName());
+            foundUser.setUserAge(updatedUser.getAge());
+            foundUser.setUserWeight(updatedUser.getWeight());
+            foundUser.setUserGender(updatedUser.getGender());
+            // Performs all of the updates with the setters
+            return userRepository.save(foundUser);
+            // Returns back the user that has now the updated information
+        } else {
+            throw new RuntimeException("User not found with the designated ID");
+        }
     }
 
     // Performs update for the daily sugar intake
