@@ -5,6 +5,8 @@ import com.siply.backend.model.BeverageLog;
 import com.siply.backend.model.User;
 import com.siply.backend.repository.UserRepository;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.http.HttpStatus;
@@ -27,6 +29,14 @@ public class BeverageLogController {
     @Autowired
     public BeverageLogController(UserRepository userRepository) {
         this.userRepository = userRepository;
+    }
+
+    @GetMapping("/get-all-beverages/{id}")
+    public ResponseEntity<List<Beverage>> getAllBeverages(@PathVariable Long id) {
+        return userRepository.findById(id).map(user -> {
+            return ResponseEntity.ok(user.getBeverageLog().getAllBeverages());
+        }).orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).body(null));
+        // Use Null if we're expected to return back a specific Object type - NOT a String
     }
 
     @PostMapping("/add-beverage/{userId}")

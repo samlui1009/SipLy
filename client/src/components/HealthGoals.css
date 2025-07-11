@@ -28,3 +28,10 @@
 .button:hover {
     opacity: 0.75;
 }
+
+.calories-form, .sugar-form, .caffeine-form {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    font-size: 20px;
+}

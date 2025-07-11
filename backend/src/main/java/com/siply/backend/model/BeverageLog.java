@@ -124,6 +124,11 @@ public class BeverageLog {
         return this.totalCaffeine;
     }
 
+    // getter
+    public List<Beverage> getAllBeverages() {
+        return this.dailyBeverages;
+    }
+
     // MODIFIES: this
     // EFFECTS: Sets the status of the daily log to true if the user has finished
     // inputting beverages
