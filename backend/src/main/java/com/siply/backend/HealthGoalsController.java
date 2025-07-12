@@ -1,6 +1,7 @@
 package com.siply.backend;
 
 import com.siply.backend.model.HealthGoals;
+import com.siply.backend.model.User;
 import com.siply.backend.repository.UserRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,29 +48,29 @@ public class HealthGoalsController {
 
     // Performs update for the daily sugar intake 
     @PutMapping("/update-sugar/{id}/{amount}")
-    public ResponseEntity<String> updateSugarGoal(@PathVariable Long id, @PathVariable int amount) {
+    public ResponseEntity<User> updateSugarGoal(@PathVariable Long id, @PathVariable int amount) {
         return userRepository.findById(id).map(user -> {
             user.getHealthGoals().setMaxSugar(amount);
             userRepository.save(user);
-            return ResponseEntity.ok("Daily sugar intake limit updated!");
+            return ResponseEntity.ok(user);
         }).orElse(ResponseEntity.notFound().build());
     }
 
     @PutMapping("/update-calories/{id}/{amount}")
-    public ResponseEntity<String> updateCalorieGoal(@PathVariable Long id, @PathVariable int amount) {
+    public ResponseEntity<User> updateCalorieGoal(@PathVariable Long id, @PathVariable int amount) {
         return userRepository.findById(id).map(user -> {
             user.getHealthGoals().setMaxCalories(amount);
             userRepository.save(user);
-            return ResponseEntity.ok("Daily calorie intake limit updated!");
+            return ResponseEntity.ok(user);
         }).orElse(ResponseEntity.notFound().build());
     }
 
     @PutMapping("/update-caffeine/{id}/{amount}")
-    public ResponseEntity<String> updateCaffeineGoal(@PathVariable Long id, @PathVariable int amount) {
+    public ResponseEntity<User> updateCaffeineGoal(@PathVariable Long id, @PathVariable int amount) {
         return userRepository.findById(id).map(user -> {
             user.getHealthGoals().setMaxCaffeine(amount);
             userRepository.save(user);
-            return ResponseEntity.ok("Daily caffeine intake limit updated!");
+            return ResponseEntity.ok(user);
         }).orElse(ResponseEntity.notFound().build());
     }
 }

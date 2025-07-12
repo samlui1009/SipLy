@@ -78,6 +78,9 @@
     border: none;
     opacity: 1;
     transition: opacity 0.5s ease;
+    width: 300px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .submit-button:hover {

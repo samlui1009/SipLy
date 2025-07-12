@@ -41,12 +41,12 @@ public class BeverageLogController {
 
     @PostMapping("/add-beverage/{userId}")
     // Maps to POST 
-    public ResponseEntity<String> addBeverage(@PathVariable Long userId, @RequestBody Beverage beverage) {
+    public ResponseEntity<User> addBeverage(@PathVariable Long userId, @RequestBody Beverage beverage) {
         return userRepository.findById(userId).map(user -> {
             user.getBeverageLog().addBeverage(beverage);
             userRepository.save(user);
-            return new ResponseEntity<>("Successfully added: " + beverage.getName(), HttpStatus.CREATED);
-        }).orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found"));
+            return ResponseEntity.ok(user);
+        }).orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).body(null));
     }
     // Basically, saying: We're adding a new resource through the HTTP method, POST
 

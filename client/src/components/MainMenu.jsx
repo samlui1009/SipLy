@@ -8,8 +8,8 @@ function MainMenu() {
     const [dailyLog, setDailyLog] = useState([]);
     // This will be an array that currently stores nothing as it is new
     const [form, setForm] = useState({
-        bevName:"",
-        cals:"",
+        name:"",
+        calories:"",
         sugar:"",
         caffeine:""
     });
@@ -222,7 +222,7 @@ function MainMenu() {
         .then((data) => {
             setDailyLog(data);
             setForm({
-                bevName:"",
+                name:"",
                 calories:"",
                 sugar:"",
                 caffeine:""
@@ -247,8 +247,8 @@ function MainMenu() {
                 <form className="bev-form" onSubmit={handleCustomBeverageSubmission}>
                     <label for="bevName">Beverage Name:</label>
                     <input type="text"
-                           value={form.bevName}
-                           onChange={(e) => setForm({ ...form, bevName: e.target.value})}></input>
+                           value={form.name}
+                           onChange={(e) => setForm({ ...form, name: e.target.value})}></input>
                     <label for="calories">Calories:</label>
                     <input type="text"
                            value={form.calories}

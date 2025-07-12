@@ -33,15 +33,13 @@ function HealthGoals() {
             if (!res.ok) {
                 throw new Error("Failed to update the users' daily caloric goal");
             }
-            return res.json();
+            return res.text();
         })
-        .then((updatedCalories) => {
-            setCalories(updatedCalories);
+        .then((updatedUser) => {
+            setCalories("")
+            setUser(updatedUser);
             setEditing(false);
             setShowCaloriesForm(false);
-            setCalories({
-                calories:""
-            })
         })
         .catch((err) => {
             console.error("Error updating the daily caloric limit", err);
@@ -64,13 +62,12 @@ function HealthGoals() {
             }
             return res.json();
         })
-        .then((updatedSugar) => {
-            setSugar(updatedSugar);
+        .then((updatedUser) => {
+            setSugar("");
+            setUser(updatedUser);
+            // setSugar(updatedSugar);
             setEditing(false);
             setShowSugarForm(false);
-            setSugar({
-                sugar:""
-            })
         })
         .catch((err) => {
             console.error("Error updating the daily sugar limit", err);
@@ -94,13 +91,11 @@ function HealthGoals() {
             }
             return res.json();
         })
-        .then((updatedCaffeine) => {
-            setCaffeine(updatedCaffeine);
+        .then((updatedUser) => {
+            setCaffeine("");
+            setUser(updatedUser);
             setEditing(false);
             setShowCaffeineForm(false);
-            setCaffeine({
-                caffeine:""
-            })
         })
         .catch((err) => {
             console.error("Error updating the daily caffeine limit", err);
@@ -131,7 +126,7 @@ function HealthGoals() {
                         setEditing(true);
                         setShowCaloriesForm(true);
                         setShowSugarForm(false);
-                        setShowCaffeineForm(false);}}>Calories</button>
+                        setShowCaffeineForm(false);}}>Calorie Intake Limit</button>
                     <button className="button" 
                         onClick={() => {
                         setShowSugarForm(true);
@@ -152,7 +147,7 @@ function HealthGoals() {
                 <>
                 <div className="calories-form">
                     <form onSubmit={handleCaloriesSubmit}>
-                        <label>Adjust your daily calorie intake: </label>
+                        <h5 className="edit-labels">Adjust your daily calorie intake: </h5>
                         <input type="number"
                                value={calories}
                                onChange={(e) => setCalories(e.target.value)}
@@ -170,7 +165,7 @@ function HealthGoals() {
                 <>
                 <div className="sugar-form">
                     <form onSubmit={handleSugarSubmit}>
-                        <label>Adjust your daily sugar intake: </label>
+                        <h5 className="edit-labels">Adjust your daily sugar intake: </h5>
                         <input type="number"
                                value={sugar}
                                onChange={(e) => setSugar(e.target.value)}
@@ -188,7 +183,7 @@ function HealthGoals() {
                 <>
                 <div className="caffeine-form">
                     <form onSubmit={handleCaffeineSubmit}>
-                        <label>Adjust your daily caffeine intake: </label>
+                        <h5 className="edit-labels">Adjust your daily caffeine intake: </h5>
                         <input type="number"
                                value={caffeine}
                                onChange={(e) => setCaffeine(e.target.value)}
