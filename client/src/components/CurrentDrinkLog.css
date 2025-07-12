@@ -1,0 +1,7 @@
+.complete-list {
+    display: flex;
+    gap: 2.5px;
+    flex-direction: column;
+    align-items: flex-start;
+    list-style-type: none;
+}
