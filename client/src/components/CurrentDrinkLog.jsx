@@ -29,14 +29,14 @@ function CurrentDrinkLog() {
             <h2>Date: {currDate}</h2>
             {hasLoggedDrinks ? (
                 <ul className="complete-list"> 
-                {dailyLog.map((bev, index) => (
-                    <li key={index}>
-                        {bev.name}
-                    </li>
+                    {dailyLog.map((bev, index) => (
+                        <li key={index}>
+                            {bev.name}
+                        </li>
                 ))}
                 </ul> 
                 ) : 
-                (<p>🌊 Nothing logged yet! Get to hydrating! ( ᵕ༚ᵕ )\̅_̅/̷̚ʾ</p>)}
+                (<p className="complete-list-alt">Nothing logged yet, but that's okay! Get to hydrating! ( ᵕ༚ᵕ )\̅_̅/̷̚ʾ</p>)}
         </div>
     );
 }

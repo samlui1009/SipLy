@@ -5,7 +5,9 @@ import com.siply.backend.model.BeverageLog;
 import com.siply.backend.model.User;
 import com.siply.backend.repository.UserRepository;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -81,14 +83,15 @@ public class BeverageLogController {
     }
 
     @GetMapping("/all-totals/{id}") 
-    public ResponseEntity<String> getAllTotals(@PathVariable Long id) {
+    public ResponseEntity<Map<String,Integer>> getAllTotals(@PathVariable Long id) {
         return userRepository.findById(id).map(user -> {
             BeverageLog log = user.getBeverageLog();
-            String summary = "Calories: " + log.getDailyTotalCalories() +
-                             ", Sugar: " + log.getDailyTotalSugarContent() +
-                             ", Caffeine: " + log.getDailyTotalCaffeineAmount();
-            return ResponseEntity.ok(summary);
-        }).orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found"));
+            Map<String, Integer> resultsMap = new HashMap<>();
+            resultsMap.put("Calories", log.getDailyTotalCalories());
+            resultsMap.put("Sugar", log.getDailyTotalSugarContent());
+            resultsMap.put("Caffeine", log.getDailyTotalCaffeineAmount());
+            return ResponseEntity.ok(resultsMap);
+        }).orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).body(null));
     }
 
     @PutMapping("/reset-log/{id}")

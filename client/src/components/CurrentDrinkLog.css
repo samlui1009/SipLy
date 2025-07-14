@@ -1,7 +1,22 @@
 .complete-list {
     display: flex;
+    font-size: 18px;
     gap: 2.5px;
     flex-direction: column;
     align-items: flex-start;
     list-style-type: none;
+
+    text-align: center;
+    padding: 10px;
+    margin: 10px;
+
+    overflow-y: scroll;
+    max-height: 300px;
+}
+
+.complete-list-alt {
+    display: flex;
+    font-size: 18px;
+    padding: 10px;
+    margin: 10px;
 }
