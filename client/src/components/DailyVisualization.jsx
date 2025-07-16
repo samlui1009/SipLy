@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 import './DailyVisualization.css';
-import { ResponsiveContainer, ComposedChart, Line, Area, Bar, ReferenceLine, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
+import { ResponsiveContainer, ComposedChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
 
-function DailyVisualization() {
+function DailyVisualization({setHappinessLevel}) {
 
     const [userData, setUserData] = useState([]);
     // Will be utilized later to be put onto the graph as the maximum limits
@@ -29,22 +29,29 @@ function DailyVisualization() {
             const combinedData = [
                 {
                     name: "Calories",
+                    totals: totalsData.Calories,
                     goal: data.maxCalories,
-                    totals: totalsData.Calories
                 },
                 {
                     name: "Sugar (g)",
-                    goal: data.maxSugar,
-                    totals: totalsData.Sugar
+                    totals: totalsData.Sugar,
+                    goal: data.maxSugar
                 },
                 {
                     name: "Caffeine (mg)",
-                    goal: data.maxCaffeine,
-                    totals: totalsData.Caffeine
+                    totals: totalsData.Caffeine,
+                    goal: data.maxCaffeine
                 }
             ];
             setUserData(combinedData);
-            })
+
+            const counts = combinedData.filter(item => item.totals < item.goal).length
+            console.log(counts);
+            // Troubleshooting print statement to see if it's matching counts
+            setHappinessLevel(counts);
+            // Verified through console that counts is the correct value
+
+            })            
         .catch(() => console.error("Error in fetching users' daily limits"));
         },[]);
 

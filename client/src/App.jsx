@@ -13,6 +13,8 @@ import './App.css'
 
 function App() {
 
+    const [happinessLevel, setHappinessState] = useState(0);
+
   return (
     <>
       <div className="app-container">
@@ -28,13 +30,13 @@ function App() {
                 <DailySummary></DailySummary>
             </div>
             <div className="happiness-panel">
-                <HappinessMeter></HappinessMeter>
+                <HappinessMeter happinessState = {happinessLevel}></HappinessMeter>
             </div>
             <div className="update-goals-panel">
                 <GoalsMenu></GoalsMenu>
             </div>
             <div className="daily-viz-panel">
-                <DailyViz></DailyViz>
+                <DailyViz setHappinessLevel = {setHappinessState}></DailyViz>
             </div>
         </div>
         <div className="site-footer">
