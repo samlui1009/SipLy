@@ -1,0 +1,33 @@
+.individual-beverage-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    border: 2px solid #6cd1e0;;
+    border-radius: 25px;
+    margin: 10px;
+    padding: 10px;
+    width: 250px;
+}
+
+.top-component {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.bev-name {
+    font-size: 20px;
+}
+
+.delete-button {
+    font-size: 18px;
+    border: none;
+    background-color: transparent;
+    opacity: 0.75;
+    cursor: pointer;
+}
+
+.delete-button:hover {
+    opacity: 1;
+    cursor: pointer;
+}

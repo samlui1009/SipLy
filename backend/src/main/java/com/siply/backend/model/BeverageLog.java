@@ -51,11 +51,11 @@ public class BeverageLog {
     // EFFECTS: Removes a beverage from the list of beverages consumed by the user
     // if there is a corresponding match with the
     // name
-    public boolean removeBeverageByName(String name) {
+    public boolean removeBeverageById(Long beverageID) {
         Iterator<Beverage> iterator = this.dailyBeverages.iterator();
         while (iterator.hasNext()) {
             Beverage currentBeverage = iterator.next();
-            if (currentBeverage.getName().equals(name)) {
+            if (currentBeverage.getBeverageID().equals(beverageID)) {
                 iterator.remove();
                 this.totalCalories -= currentBeverage.getCalories();
                 this.totalSugar -= currentBeverage.getSugar();
@@ -65,6 +65,9 @@ public class BeverageLog {
         }
         return false;
     }
+    // Troubleshooting encountered here - By using the iterator, it only removes the first instance of beverage 
+    // With that name. Subsequent ones are NOT going to be removed
+    // 
 
     // REQUIRES: Beverage must be found in the user's list 
     // EFFECTS: Returns back the beverage from list of beverages if there is a corresponding match

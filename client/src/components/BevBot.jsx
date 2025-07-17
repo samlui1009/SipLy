@@ -6,8 +6,8 @@ function BevBot() {
     return(
         <div className="bev-bot-container">
             <img src={Bot} className="robot-gif"></img>
-            <p className="chat-instructions">Not meeting your goals and need some advice? Come talk to me, BevBot, for tailored recommendations!</p>
-            <button className="chat-button">Chat here!</button>
+            <p className="chat-instructions">As BevBot, I'll help analyze your daily records and guide you towards making better, more informed decisions!</p>
+            <button className="chat-button">Analyze!</button>
         </div>
     );
 }

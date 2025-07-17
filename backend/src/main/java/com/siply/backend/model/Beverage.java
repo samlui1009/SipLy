@@ -18,6 +18,9 @@ public class Beverage {
     private int sugar;
     private int caffeine;
 
+    private static Long beverageID = (long) 0;
+    // Added a new beverage ID 
+
     // No-parameter constructor, which is required by Spring for deserialization
     // 
     public Beverage() {
@@ -33,6 +36,8 @@ public class Beverage {
         this.calories = calories;
         this.sugar = sugar;
         this.caffeine = caffeine;
+        this.id = beverageID++;
+        // Using the counter to increment each beverages' ID
     }
 
     // getter
@@ -58,6 +63,11 @@ public class Beverage {
     // getter
     public int getCaffeineAmount() {
         return caffeine;
+    }
+
+    // getter
+    public Long getBeverageID() {
+        return id;
     }
 
     // setter

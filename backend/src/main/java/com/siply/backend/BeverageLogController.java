@@ -52,17 +52,17 @@ public class BeverageLogController {
     }
     // Basically, saying: We're adding a new resource through the HTTP method, POST
 
-    @DeleteMapping("/remove-beverage/{id}/{name}")
+    @DeleteMapping("/remove-beverage/{id}/{bevID}")
     // Path Variables are used to extract parts of the URL path
     // Remove Name is the route that expects a beverage name to be part of the URL
-    public ResponseEntity<String> removeBeverage(@PathVariable Long id, @PathVariable String name) {
+    public ResponseEntity<String> removeBeverage(@PathVariable Long id, @PathVariable Long bevID) {
         return userRepository.findById(id).map(user -> {
-            boolean removed = user.getBeverageLog().removeBeverageByName(name);
+            boolean removed = user.getBeverageLog().removeBeverageById(bevID);
             if (removed) {
                 userRepository.save(user);
-                return ResponseEntity.ok("Removed: " + name);
+                return ResponseEntity.ok("Removed: " + bevID.toString());
             } else {
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Beverage not found: " + name);
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Beverage not found");
             }
         }).orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found"));
     }
