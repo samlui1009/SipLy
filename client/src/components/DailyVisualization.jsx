@@ -50,6 +50,8 @@ function DailyVisualization({setHappinessLevel}) {
             // Troubleshooting print statement to see if it's matching counts
             setHappinessLevel(counts);
             // Verified through console that counts is the correct value
+            // Currently, through testing, the value of "counts" is going to be 0 because 
+            // user went over all of their daily intake limits
 
             })            
         .catch(() => console.error("Error in fetching users' daily limits"));

@@ -1,28 +1,32 @@
-import DefaultUser from '../assets/Default_User.png'
-import Mascot from '../assets/Mascot_Pixel.gif';
-import Test from '../assets/Test_Trial.gif';
+import SadSlime from '../assets/Sad_Slime.png'
+import NeutralSlime from '../assets/Neutral_Slime.png'
+import HappySlime from '../assets/Happy_Slime.png';
+import ExcitedSlime from '../assets/Excited_Slime.png';
+
+import ProgressBar from './ProgressBar.jsx';
+
 import './HappinessMeter.css';
 
 function HappinessMeter({happinessState}) {
     
     let moodSprite;
-    // Let the "moodSprite" variable exist
+    // Let the "moodSprite" variable exist without anything associated with it first
 
     switch (happinessState) {
         case 0:
-            moodSprite = DefaultUser;
+            moodSprite = SadSlime;
             break;
         case 1:
-            moodSprite = Mascot;
+            moodSprite = NeutralSlime;
             break;
         case 2:
-            moodSprite = Test;
+            moodSprite = HappySlime;
             break;
         case 3:
-            moodSprite = DefaultUser;
+            moodSprite = ExcitedSlime;
             break;
         default:
-            moodSprite = DefaultUser;
+            moodSprite = ExcitedSlime;
             break;
     }
 
@@ -30,6 +34,7 @@ function HappinessMeter({happinessState}) {
         <div className="happiness-meter">
             <h1>SipLy's Happiness Meter</h1>
             <img src={moodSprite} className="mascot-status"/>
+            <ProgressBar happinessState={happinessState}></ProgressBar>
         </div>
     );
 }
