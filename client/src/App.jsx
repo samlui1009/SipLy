@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 import Header from './components/Header.jsx';
 import Footer from './components/Footer.jsx';
@@ -8,6 +8,7 @@ import DailySummary from './components/DailySummary.jsx';
 import HappinessMeter from './components/HappinessMeter.jsx';
 import GoalsMenu from './components/HealthGoals.jsx';
 import DailyViz from './components/DailyVisualization.jsx';
+import BevBot from './components/BevBot.jsx';
 
 import './App.css'
 
@@ -37,6 +38,9 @@ function App() {
             </div>
             <div className="daily-viz-panel">
                 <DailyViz setHappinessLevel = {setHappinessState}></DailyViz>
+            </div>
+            <div className="bev-bot-panel">
+                <BevBot></BevBot>
             </div>
         </div>
         <div className="site-footer">

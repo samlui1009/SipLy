@@ -21,23 +21,11 @@ function ProgressBar({happinessState}) {
             siplyMood = "You're making good progress!";
             break;
         case 3:
-            siplyMood = "YAY, you did it! I'm so proud of you!";
+            siplyMood = "YAY, you did it! I'm so proud of you! ٩(^ᗜ^ )و ´-";
             break;
         default:
             siplyMood = "Man, I'm thirsty!";
             break;
-    }
-
-    const getProgressBarColor = (currentProgress) => {
-        if (currentProgress <= 25) {
-            return 'red';
-        } else if (currentProgress > 25 && currentProgress <= 50) {
-            return 'orange';
-        } else if (currentProgress < 50 && currentProgress <= 75) {
-            return 'yellow';
-        } else if (currentProgress == 100) {
-            return 'green';
-        }
     }
     
     return(
@@ -47,8 +35,8 @@ function ProgressBar({happinessState}) {
             </div>
             <div className = "bar">
                 <div className="bar-fill" 
-                    style={{ width: `${currentProgress}%`}}
-                    color={getProgressBarColor}></div>
+                    style={{ width: `${currentProgress}%`}}>
+                </div>
             </div>
             <p>Current Progress</p>
         </div>

@@ -19,7 +19,7 @@ body {
     grid-template-columns: 1fr 1.5fr 1fr;
     /* Changes the "fraction" of how wide each column should take */
     grid-template-rows: auto auto;
-    grid-template-areas: "profile beverages log" "happiness beverages progress";
+    grid-template-areas: "profile beverages log" "happiness beverages progress" ". . bevbot";
     /* Named layout map */
     gap: 2rem;
     padding-bottom: 2rem;
@@ -44,6 +44,10 @@ body {
 
 .happiness-panel {
     grid-area: happiness;
+}
+
+.bev-bot-panel {
+    grid-area: bevbot;
 }
 
 .site-footer {
