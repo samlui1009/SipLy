@@ -2,13 +2,26 @@ import { useState, useEffect } from 'react';
 import './DailyVisualization.css';
 import { ResponsiveContainer, ComposedChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
 
-function DailyVisualization({setHappinessLevel}) {
+function DailyVisualization({setHappinessLevel, setThirstyLevel}) {
 
     const [userData, setUserData] = useState([]);
     // Will be utilized later to be put onto the graph as the maximum limits
     // Will be an array, as Recharts expects an array argument
 
     useEffect(() => {
+
+        // console.log("Grabbing total counts");
+        // This is running
+        fetch('http://localhost:8080/api/beverage-log/get-total-number-beverages/1')
+        .then((res) => {
+            if (!res.ok) throw new Error("Failed to fetch users' daily beverage count");
+            return res.text();
+        })
+        .then((countStr) => {
+            const count = parseInt(countStr);
+            setThirstyLevel(count === 0);
+        })
+
         Promise.all([
             fetch('http://localhost:8080/api/health-goals/1')
             .then((res) => {
@@ -21,11 +34,10 @@ function DailyVisualization({setHappinessLevel}) {
                 if (!res.ok) throw new Error("Failed to fetch users' daily totals");
                 return res.json();
             })
-        // Will be able to properly return back the response as JSON object now that it's been updated instead of a String
         ])
         // Promise.all needed to ensure both API calls run asynchronously
 
-        .then(([data, totalsData]) => {  
+        .then(([data, totalsData]) => {
             const combinedData = [
                 {
                     name: "Calories",
@@ -46,8 +58,6 @@ function DailyVisualization({setHappinessLevel}) {
             setUserData(combinedData);
 
             const counts = combinedData.filter(item => item.totals < item.goal).length
-            console.log(counts);
-            // Troubleshooting print statement to see if it's matching counts
             setHappinessLevel(counts);
             // Verified through console that counts is the correct value
             // Currently, through testing, the value of "counts" is going to be 0 because 
@@ -55,7 +65,7 @@ function DailyVisualization({setHappinessLevel}) {
 
             })            
         .catch(() => console.error("Error in fetching users' daily limits"));
-        },[]);
+        },[setHappinessLevel, setThirstyLevel]);
 
     return(
         <div className="daily-viz">

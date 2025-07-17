@@ -41,6 +41,15 @@ public class BeverageLogController {
         // Use Null if we're expected to return back a specific Object type - NOT a String
     }
 
+    // New API 
+    @GetMapping("/get-total-number-beverages/{id}")
+    public ResponseEntity<Integer> getTotalBeverageNumber(@PathVariable Long id) {
+        return userRepository.findById(id).map(user -> {
+            int totalBeverages = user.getBeverageLog().getAllBeverages().size();
+            return ResponseEntity.ok(totalBeverages);
+        }).orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).body(-1));
+    }
+
     @PostMapping("/add-beverage/{userId}")
     // Maps to POST 
     public ResponseEntity<User> addBeverage(@PathVariable Long userId, @RequestBody Beverage beverage) {

@@ -65,7 +65,6 @@ function HealthGoals() {
         .then((updatedUser) => {
             setSugar("");
             setUser(updatedUser);
-            // setSugar(updatedSugar);
             setEditing(false);
             setShowSugarForm(false);
         })

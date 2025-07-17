@@ -1,7 +1,6 @@
-import { useState, useEffect } from 'react';
 import './ProgressBar.css';
 
-function ProgressBar({happinessState}) {
+function ProgressBar({happinessState, thirsty}) {
 
     let currentProgress = (happinessState/3)*100;
     // Returns back an integer value as a percent for what the conditional fill for the bar should be
@@ -10,22 +9,28 @@ function ProgressBar({happinessState}) {
     // Assign a new variable called "siplyMood" to determine what Siply should be saying as feedback to the
     // user
 
-    switch (happinessState) {
-        case 0:
-            siplyMood = "That's okay, you did your best! I'm sad but I'm still proud of you!";
-            break;
-        case 1:
-            siplyMood = "Hmm. Not quite there yet!";
-            break;
-        case 2: 
-            siplyMood = "You're making good progress!";
-            break;
-        case 3:
-            siplyMood = "YAY, you did it! I'm so proud of you! ٩(^ᗜ^ )و ´-";
-            break;
-        default:
-            siplyMood = "Man, I'm thirsty!";
-            break;
+    if (thirsty) {
+        siplyMood = "Man, I'm thirsty! (｡•́︿•̀｡)";
+        currentProgress = 0;
+    } else {
+        switch (happinessState) {
+            case 0:
+                siplyMood = "That's okay, you did your best! I'm sad but I'm still proud of you!";
+                break;
+            case 1:
+                siplyMood = "Hmm. Only 1/3 limits achieved today. Good effort!";
+                break;
+            case 2: 
+                siplyMood = "Great job! 2/3 limits achieved today.";
+                break;
+            case 3:
+                siplyMood = "YAY, you did it! I'm so proud of you! ٩(^ᗜ^ )و ´-";
+                break;
+            default:
+                siplyMood = "Man, I'm thirsty!";
+                break;
+    
+        }
     }
     
     return(

@@ -14,7 +14,11 @@ import './App.css'
 
 function App() {
 
-    const [happinessLevel, setHappinessState] = useState(0);
+  const [happinessLevel, setHappinessState] = useState(0);
+  const [refreshData, setRefreshData] = useState(0);
+  // State that is required to be used by different children components for dynamic re-rendering
+  // TODO - Come back to this later 
+  const [isThirsty, setIsThirsty] = useState(false);  
 
   return (
     <>
@@ -31,13 +35,13 @@ function App() {
                 <DailySummary></DailySummary>
             </div>
             <div className="happiness-panel">
-                <HappinessMeter happinessState = {happinessLevel}></HappinessMeter>
+                <HappinessMeter happinessState = {happinessLevel} thirsty = {isThirsty}></HappinessMeter>
             </div>
             <div className="update-goals-panel">
                 <GoalsMenu></GoalsMenu>
             </div>
             <div className="daily-viz-panel">
-                <DailyViz setHappinessLevel = {setHappinessState}></DailyViz>
+                <DailyViz setHappinessLevel = {setHappinessState} setThirstyLevel = {setIsThirsty}></DailyViz>
             </div>
             <div className="bev-bot-panel">
                 <BevBot></BevBot>
