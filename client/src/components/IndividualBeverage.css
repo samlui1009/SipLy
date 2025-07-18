@@ -16,6 +16,10 @@
     justify-content: space-between;
 }
 
+.consumption-time {
+    font-size: 15px;
+}
+
 .bev-name {
     font-size: 20px;
 }

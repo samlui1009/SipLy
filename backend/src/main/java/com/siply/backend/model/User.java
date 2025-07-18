@@ -14,6 +14,11 @@ public class User {
     private Long id;
 
     private String name;
+
+    private String userName;
+    private String passWord;
+    // Added 2 new fields for potential scaling of multiple users
+
     private int age;
     private int weight;
     private String gender;

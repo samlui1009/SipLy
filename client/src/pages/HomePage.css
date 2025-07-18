@@ -1,0 +1,57 @@
+@import url('https://fonts.googleapis.com/css2?family=Comic+Neue:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&family=Quicksand:wght@300..700&display=swap');
+
+body {
+  /* display: block; */
+  background-color: #ccf7fe;
+  font-family: "Quicksand", sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.app-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr 1fr;
+    /* Changes the "fraction" of how wide each column should take */
+    grid-template-rows: auto auto;
+    grid-template-areas: "profile beverages log" "happiness beverages progress" ". . bevbot";
+    /* Named layout map */
+    gap: 2rem;
+    padding-bottom: 2rem;
+    align-items: start;
+}
+
+.profile-panel {
+    grid-area: profile;
+}
+
+.add-bev-panel {
+    grid-area: beverages;
+}
+
+.daily-log-panel {
+    grid-area: log;
+}
+
+.daily-viz-panel {
+    grid-area: progress;
+}
+
+.happiness-panel {
+    grid-area: happiness;
+}
+
+.bev-bot-panel {
+    grid-area: bevbot;
+}
+
+.site-footer {
+    margin-top: auto;
+    text-align: center;
+    padding: 1rem;
+}
