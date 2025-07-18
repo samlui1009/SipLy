@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import './HealthGoals.css';
 
-function HealthGoals() {
+function HealthGoals({setNewHealthGoals}) {
 
     const [user, setUser] = useState(null);
     // This is necessary as this should then be connected to the Daily Log/
@@ -16,7 +16,6 @@ function HealthGoals() {
     const [calories, setCalories] = useState("");
     const [sugar, setSugar] = useState("");
     const [caffeine, setCaffeine] = useState("");
-
 
     // 3 separate functions to update calories, sugar and caffeine
     const handleCaloriesSubmit = (e) => {
@@ -40,6 +39,7 @@ function HealthGoals() {
             setUser(updatedUser);
             setEditing(false);
             setShowCaloriesForm(false);
+            setNewHealthGoals(prev => prev + 1);
         })
         .catch((err) => {
             console.error("Error updating the daily caloric limit", err);
@@ -67,6 +67,7 @@ function HealthGoals() {
             setUser(updatedUser);
             setEditing(false);
             setShowSugarForm(false);
+            setNewHealthGoals(prev => prev + 1);
         })
         .catch((err) => {
             console.error("Error updating the daily sugar limit", err);
@@ -95,6 +96,7 @@ function HealthGoals() {
             setUser(updatedUser);
             setEditing(false);
             setShowCaffeineForm(false);
+            setNewHealthGoals(prev => prev + 1);
         })
         .catch((err) => {
             console.error("Error updating the daily caffeine limit", err);

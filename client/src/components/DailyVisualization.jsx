@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import './DailyVisualization.css';
 import { ResponsiveContainer, ComposedChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
 
-function DailyVisualization({setHappinessLevel, setThirstyLevel}) {
+function DailyVisualization({setHappinessLevel, setThirstyLevel, newData}) {
 
     const [userData, setUserData] = useState([]);
     // Will be utilized later to be put onto the graph as the maximum limits
@@ -65,7 +65,7 @@ function DailyVisualization({setHappinessLevel, setThirstyLevel}) {
 
             })            
         .catch(() => console.error("Error in fetching users' daily limits"));
-        },[setHappinessLevel, setThirstyLevel]);
+        },[setHappinessLevel, setThirstyLevel, newData]);
 
     return(
         <div className="daily-viz">

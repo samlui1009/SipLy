@@ -17,7 +17,7 @@ function App() {
   const [happinessLevel, setHappinessState] = useState(0);
   const [refreshData, setRefreshData] = useState(0);
   // State that is required to be used by different children components for dynamic re-rendering
-  // TODO - Come back to this later 
+  const [deleteData, setDeletedData] = useState(0); 
   const [isThirsty, setIsThirsty] = useState(false);  
 
   return (
@@ -29,19 +29,19 @@ function App() {
                 <UserProfile></UserProfile>
             </div>
             <div className="add-bev-panel">
-                <MainMenu></MainMenu>
+                <MainMenu setNewBeverageData={setRefreshData}></MainMenu>
             </div>
             <div className="daily-log-panel">
-                <DailySummary></DailySummary>
+                <DailySummary setNewBeverageData={setRefreshData} setDeletedData={setRefreshData}></DailySummary>
             </div>
             <div className="happiness-panel">
                 <HappinessMeter happinessState = {happinessLevel} thirsty = {isThirsty}></HappinessMeter>
             </div>
             <div className="update-goals-panel">
-                <GoalsMenu></GoalsMenu>
+                <GoalsMenu setNewHealthGoals={setRefreshData}></GoalsMenu>
             </div>
             <div className="daily-viz-panel">
-                <DailyViz setHappinessLevel = {setHappinessState} setThirstyLevel = {setIsThirsty}></DailyViz>
+                <DailyViz setHappinessLevel = {setHappinessState} setThirstyLevel = {setIsThirsty} newData = {refreshData}></DailyViz>
             </div>
             <div className="bev-bot-panel">
                 <BevBot></BevBot>

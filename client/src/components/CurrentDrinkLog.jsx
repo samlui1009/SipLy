@@ -4,7 +4,7 @@ import SingleBev from './IndividualBeverage.jsx';
 
 import './CurrentDrinkLog.css';
 
-function CurrentDrinkLog() {
+function CurrentDrinkLog({setNewBeverageData}) {
 
     const [dailyLog, setDailyLog] = useState([]);
     const [hasLoggedDrinks, setHasLoggedDrinks] = useState(false);
@@ -26,12 +26,14 @@ function CurrentDrinkLog() {
         .then(() => {
             fetch('http://localhost:8080/api/beverage-log/get-all-beverages/1')
                 .then(res => res.json())
-                .then(data => setDailyLog(data));
+                .then(data => {
+                    setDailyLog(data);
+                    setNewBeverageData(data);
+                });
         })        
         .catch((err) => {
             console.error("Error in removing the users' beverage", err);
         })
-
         console.log("Beverage successfully deleted!");
     }
 
@@ -47,7 +49,7 @@ function CurrentDrinkLog() {
             // If the length of the data is > 0, then we know that there ARE beverages logged
         })
         .catch(() => console.error("Error in fetching the users' beverage log"));
-    })
+    });
 
     return(
         <div className="current-log">

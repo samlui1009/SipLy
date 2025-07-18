@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import './MainMenu.css';
 
-function MainMenu() {
+function MainMenu({setNewBeverageData}) {
 
     const [user, setUser] = useState(null);
     // User State variable 
@@ -52,6 +52,7 @@ function MainMenu() {
         })
         .then((data) => {
             setDailyLog(data);
+            setNewBeverageData(data);
         })
         .catch((err) => {
             console.error("Error adding water", err);
@@ -81,6 +82,7 @@ function MainMenu() {
         })
         .then((data) => {
             setDailyLog(data);
+            setNewBeverageData(data);
         })
         .catch((err) => {
             console.error("Error adding coffee", err);
@@ -110,6 +112,7 @@ function MainMenu() {
         })
         .then((data) => {
             setDailyLog(data);
+            setNewBeverageData(data);
         })
         .catch((err) => {
             console.error("Error adding tea", err);
@@ -139,6 +142,7 @@ function MainMenu() {
         })
         .then((data) => {
             setDailyLog(data);
+            setNewBeverageData(data);
         })
         .catch((err) => {
             console.error("Error adding milk", err);
@@ -168,6 +172,7 @@ function MainMenu() {
         })
         .then((data) => {
             setDailyLog(data);
+            setNewBeverageData(data);
         })
         .catch((err) => {
             console.error("Error adding juice", err);
@@ -197,6 +202,7 @@ function MainMenu() {
         })
         .then((data) => {
             setDailyLog(data);
+            setNewBeverageData(data);
         })
         .catch((err) => {
             console.error("Error adding pop", err);
@@ -221,6 +227,7 @@ function MainMenu() {
         })
         .then((data) => {
             setDailyLog(data);
+            setNewBeverageData(data);
             setForm({
                 name:"",
                 calories:"",
