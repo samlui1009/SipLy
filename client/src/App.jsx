@@ -2,7 +2,9 @@ import { HashRouter as Router, Routes, Route } from 'react-router-dom';
 
 import RegisterPage from './pages/Register.jsx';
 import LoginPage from './pages/Login.jsx';
+import NewUserPage from './pages/NewUser.jsx';
 import HomePage from './pages/HomePage.jsx';
+import NewUser from './pages/NewUser.jsx';
 
 function App() {
 
@@ -12,6 +14,7 @@ function App() {
             <Routes>
                 <Route path="/" element={<RegisterPage />}></Route>
                 <Route path="/login-to-siply" element={<LoginPage />}></Route>
+                <Route path="/register-user" element={<NewUserPage />}></Route>
                 <Route path="/siply-home" element={<HomePage />}></Route>
             </Routes>
         </Router>
