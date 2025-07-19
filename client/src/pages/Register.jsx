@@ -1,6 +1,5 @@
-import './Register.css'
 import Footer from '../components/Footer.jsx';
-import Login from '../components/RegisterUser.jsx';
+import RegisterUser from '../components/RegisterUser.jsx';
 import Header from '../components/Header.jsx';
 
 function Register() {
@@ -8,7 +7,7 @@ function Register() {
     return(
         <div>
             <Header></Header>
-            <Login></Login>
+            <RegisterUser></RegisterUser>
             <Footer></Footer>
         </div>
     );
