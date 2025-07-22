@@ -15,6 +15,7 @@ function App() {
                 <Route path="/" element={<RegisterPage />}></Route>
                 <Route path="/login-to-siply" element={<LoginPage />}></Route>
                 <Route path="/register-user" element={<NewUserPage />}></Route>
+                <Route path="/new-user" element={<NewUser />}></Route>
                 <Route path="/siply-home" element={<HomePage />}></Route>
             </Routes>
         </Router>

@@ -1,3 +1,41 @@
 .introduction-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     font-family: 'Pixelify Sans', sans-serif;
+}
+
+.general-profile-info-container {
+    display: flex;
+    padding: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 50px;
+    padding: 25px;
+    background: #a5d1ee;
+    border: 2px solid #F8F9FA;
+    flex-direction: column;
+    width: 500px;
+    height: 320px;
+    border-radius: 25px;
+    font-family: 'Pixelify Sans', sans-serif;
+}
+
+.form-labels {
+    padding: 5px;
+    font-size: 18px;
+}
+
+.general-info-form {
+    display: flex;
+    flex-direction: column;
+    border-radius: 25px;
+    font-family: 'Pixelify Sans', sans-serif;
+}
+
+.next-btn {
+    background: transparent;
+    margin: 15px;
+    border: none;
+    font-size: 25px;
 }
