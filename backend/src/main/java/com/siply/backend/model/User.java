@@ -81,8 +81,13 @@ public class User {
     }
 
     // getter
-    public String getUserPassWord() {
+    public String getPassWord() {
         return passWord;
+    }
+
+    // getter
+    public Long getUserId() {
+        return id;
     }
 
     // setter
@@ -125,11 +130,18 @@ public class User {
 
     // setter
     // MODIFIES: this
-    // EFFECTS: Updates the users' password if it changes 
-    public void setPassword(String pWord) {
-        if (pWord.length() < 0 || pWord == null) {
+    // EFFECTS: Updates the users' email if it changes
+    public void setEmailAddress(String newEmail) {
+        if (newEmail.length() < 0 || newEmail == null) {
             throw new InvalidInputException();
         }
+        this.emailAddress = newEmail;
+    }
+
+    // setter
+    // MODIFIES: this
+    // EFFECTS: Updates the users' password if it changes 
+    public void setPassWord(String pWord) {
         this.passWord = pWord;
     }
 

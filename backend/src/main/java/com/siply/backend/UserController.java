@@ -34,17 +34,22 @@ public class UserController {
     // Login functionalities are ALWAYS going to be a PutMapping, NOT GetMapping - why?
     // Because we need to submit credentials to the server
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody User loginRequest) {
+    public ResponseEntity<User> loginExistingUser(@RequestBody User loginRequest) {
             Optional<User> userOptional = Optional.ofNullable(userRepository.findByEmailAddress(loginRequest.getUserEmail()));
+            System.out.println("Login attempt for: " + loginRequest.getUserEmail());
+            System.out.println("Raw password: " + loginRequest.getPassWord());
             if (userOptional.isPresent()) {
                 User user = userOptional.get();
-                if (passwordEncoder.matches(loginRequest.getUserPassWord(), user.getUserPassWord())) {
-                    return ResponseEntity.ok("Login successful!");
+                if (passwordEncoder.matches(loginRequest.getPassWord(), user.getPassWord())) {
+                    System.out.println("Password matches? " + passwordEncoder.matches(loginRequest.getPassWord(), user.getPassWord()));
+                    user.setPassWord(null);
+                    return ResponseEntity.ok(user);
+                    // return ResponseEntity.ok("Login successful!");
                 } else {
-                    return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid password. Please try again.");
+                    return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
                 }
             } else {
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
             }
     }
 
@@ -53,7 +58,7 @@ public class UserController {
     public ResponseEntity<String> updatePassword(@PathVariable long id, @RequestBody String newPassword) {
         return userRepository.findById(id).map(user -> {
             System.out.println("🚨 Received new password: " + newPassword);
-            user.setPassword(passwordEncoder.encode(newPassword));
+            user.setPassWord(passwordEncoder.encode(newPassword));
             userRepository.save(user);
             return ResponseEntity.ok("Password has been updated!");
         }).orElse(ResponseEntity.notFound().build());
