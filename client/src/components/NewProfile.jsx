@@ -1,7 +1,11 @@
+import { useState, useEffect } from 'react';
 import './NewProfile.css';
 import { GrFormNextLink } from "react-icons/gr";
 
 function NewProfile() {
+
+    const [healthGoalsPanel, setHealthGoalsPanel] = useState(false);
+    // States to show the panel for health goals
 
     return(
         <div>
@@ -20,9 +24,10 @@ function NewProfile() {
                         <label className="form-labels">What are your preferred pronouns?</label>
                         <input type="text" className="form-inputs"></input>
                     </form>
+                    <p>Next</p>
                     <button className="next-btn"><GrFormNextLink></GrFormNextLink></button>
                 </div>
-                
+
                 <h3>Great! Now, tell me about your current health goals.</h3>
                 <form>
                     <label>What is the daily intake limit for calories for beverages that you want to set?</label>

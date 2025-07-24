@@ -19,7 +19,7 @@ public class SiplyApplication {
     public CommandLineRunner runner(UserRepository userRepository) {
         return args -> {
             if (userRepository.count() == 0) {
-                User sam = new User("Sam", 31, 135, "Female");
+                User sam = new User("Sam", 31, 135, "Female", "default", "default");
                 userRepository.save(sam);    
             }
         };

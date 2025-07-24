@@ -19,6 +19,9 @@ public class UserController {
     private final UserRepository userRepository;
 
     @Autowired
+    private UserService service;
+
+    @Autowired
     public UserController(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
@@ -29,10 +32,27 @@ public class UserController {
         return userRepository.findById(id).map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
     }
 
-    @PostMapping("/add-user")
-    public ResponseEntity<User> createUser(@RequestBody User user) {
-        User savedUser = userRepository.save(user);
-        return ResponseEntity.ok(savedUser);
+    // Followed tutorial for this one
+    @PostMapping("/register-user")
+    public User registerUser(@RequestBody User user) {
+        return service.register(user);
+        // User savedUser = userRepository.save(user);
+        // return ResponseEntity.ok(savedUser);
+    }
+
+    // This method differs from the one below
+    // This is used to set up the user profile information immediately AFTER registering 
+    // with e-mail and password
+    @PutMapping("/setup-user/{id}")
+    public ResponseEntity<String> setupUser(@PathVariable Long id, @RequestBody User updatedUser) {
+        return userRepository.findById(id).map(user -> {
+            user.setUserName(updatedUser.getName());
+            user.setUserGender(updatedUser.getGender());
+            user.setUserAge(updatedUser.getAge());
+            user.setUserWeight(updatedUser.getWeight());
+            userRepository.save(user);
+            return ResponseEntity.ok("New user, " + user.getName() + ", has been created!");
+        }).orElse(ResponseEntity.notFound().build());
     }
 
     @PutMapping("/update-user/{id}")

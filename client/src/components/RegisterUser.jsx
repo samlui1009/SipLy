@@ -1,4 +1,5 @@
 import './RegisterUser.css';
+import { useState, useEffect } from 'react';
 
 function RegisterUser() {
 
@@ -8,16 +9,12 @@ function RegisterUser() {
                 <h1 className="sign-up-header">Sign Up for SipLy</h1>
                 <form className="sign-up-form">
                     <div className="form-group">
-                        <label className="form-labels">Username</label>
+                        <label className="form-labels">Email</label>
                         <input type="text" className="form-inputs"></input>
                     </div>
                     <div className="form-group">
                         <label className="form-labels">Password</label>
                         <input type="password" className="form-inputs"></input>
-                    </div>
-                    <div className="form-group">
-                        <label className="form-labels">Email</label>
-                        <input type="text" className="form-inputs"></input>
                     </div>
             </form>
                     <div className="remember-me-div">

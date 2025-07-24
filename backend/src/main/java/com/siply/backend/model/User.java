@@ -15,7 +15,7 @@ public class User {
 
     private String name;
 
-    private String userName;
+    private String emailAddress;
     private String passWord;
     // Added 2 new fields for potential scaling of multiple users
 
@@ -32,11 +32,13 @@ public class User {
         // Generic constructor
     }
 
-    public User(String name, int age, int weight, String gender) {
+    public User(String name, int age, int weight, String gender, String email, String pWord) {
         this.name = name;
         this.age = age;
         this.weight = weight;
         this.gender = gender;
+        this.emailAddress = email;
+        this.passWord = pWord;
         this.healthGoals = new HealthGoals(0, 0, 0);
         this.bevLog = new BeverageLog();
     }
@@ -71,7 +73,17 @@ public class User {
         return bevLog;
     }
 
-        // setter
+    // getter
+    public String getUserEmail() {
+        return emailAddress;
+    }
+
+    // getter
+    public String getUserPassWord() {
+        return passWord;
+    }
+
+    // setter
     // MODIFIES: this
     // EFFECTS: Updates the user's name to a different name if it changes
     public void setUserName(String name) {
@@ -107,5 +119,22 @@ public class User {
             throw new NegativeValueException("This");
         }
         this.age = age;
+    }
+
+    // setter
+    // MODIFIES: this
+    // EFFECTS: Updates the users' password if it changes 
+    public void setPassword(String pWord) {
+        if (pWord.length() < 0) {
+            throw new InvalidInputException();
+        }
+        this.passWord = pWord;
+    }
+
+    // setter
+    // MODIFIES: this
+    // EFFECTS: Updates the entire HealthGoals JSON object if it changes 
+    public void setNewHealthGoals(HealthGoals newGoals) {
+        this.healthGoals = newGoals;
     }
 }
