@@ -15,6 +15,8 @@ public class User {
 
     private String name;
 
+    @Column(unique = true)
+    // https://medium.com/@villysiu/java-springboot-signup-login-rest-api-d01b21759ba9
     private String emailAddress;
     private String passWord;
     // Added 2 new fields for potential scaling of multiple users
@@ -125,7 +127,7 @@ public class User {
     // MODIFIES: this
     // EFFECTS: Updates the users' password if it changes 
     public void setPassword(String pWord) {
-        if (pWord.length() < 0) {
+        if (pWord.length() < 0 || pWord == null) {
             throw new InvalidInputException();
         }
         this.passWord = pWord;

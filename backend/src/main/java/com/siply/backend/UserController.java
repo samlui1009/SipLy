@@ -8,7 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.siply.backend.model.User;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin(origins = "http://localhost:5173")
@@ -20,10 +22,41 @@ public class UserController {
 
     @Autowired
     private UserService service;
+    private BCryptPasswordEncoder passwordEncoder;
 
     @Autowired
-    public UserController(UserRepository userRepository) {
+    public UserController(UserRepository userRepository, UserService userService, BCryptPasswordEncoder pWordEncoder) {
         this.userRepository = userRepository;
+        this.service = userService;
+        this.passwordEncoder = pWordEncoder;
+    }
+
+    // Login functionalities are ALWAYS going to be a PutMapping, NOT GetMapping - why?
+    // Because we need to submit credentials to the server
+    @PostMapping("/login")
+    public ResponseEntity<String> login(@RequestBody User loginRequest) {
+            Optional<User> userOptional = Optional.ofNullable(userRepository.findByEmailAddress(loginRequest.getUserEmail()));
+            if (userOptional.isPresent()) {
+                User user = userOptional.get();
+                if (passwordEncoder.matches(loginRequest.getUserPassWord(), user.getUserPassWord())) {
+                    return ResponseEntity.ok("Login successful!");
+                } else {
+                    return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid password. Please try again.");
+                }
+            } else {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
+            }
+    }
+
+    // Temporary API endpoint to update the password for testing purposes
+    @PutMapping("/update-password/{id}")
+    public ResponseEntity<String> updatePassword(@PathVariable long id, @RequestBody String newPassword) {
+        return userRepository.findById(id).map(user -> {
+            System.out.println("🚨 Received new password: " + newPassword);
+            user.setPassword(passwordEncoder.encode(newPassword));
+            userRepository.save(user);
+            return ResponseEntity.ok("Password has been updated!");
+        }).orElse(ResponseEntity.notFound().build());
     }
 
     // Returns back a User JSON object
