@@ -47,7 +47,7 @@ function LoginComponent() {
                 <h1 className="login-header">Login to SipLy</h1>
                 <form className="login-form">
                     <div className="form-group">
-                        <label className="form-labels">Username</label>
+                        <label className="form-labels">Email</label>
                         <input type="text"
                                value={email}
                                onChange={(e) => setEmail(e.target.value)} 

@@ -1,6 +1,6 @@
 import './RegisterUser.css';
 import { useNavigate, Link } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 function RegisterUser() {
 
@@ -19,8 +19,8 @@ function RegisterUser() {
                 'Content-Type':'application/json',
             },
             body: JSON.stringify({
-                userEmail: email,
-                userPassWord: password
+                emailAddress: email,
+                passWord: password
             })
         })
         .then((res) => {
@@ -30,6 +30,7 @@ function RegisterUser() {
             return res.json();
         })
         .then((userData) => {
+            console.log("New user has been registered with SipLy!", userData);
             localStorage.setItem("userId", userData.userId);
             // localStorage.setItem("userEmail", userData.userEmail);
             // localStorage.setItem("userPassword", userData.userPassword);
@@ -48,11 +49,17 @@ function RegisterUser() {
                 <form className="sign-up-form">
                     <div className="form-group">
                         <label className="form-labels">Email</label>
-                        <input type="text" className="form-inputs"></input>
+                        <input type="text" 
+                               className="form-inputs"
+                               value={email}
+                               onChange={(e) => setEmail(e.target.value)}></input>
                     </div>
                     <div className="form-group">
                         <label className="form-labels">Password</label>
-                        <input type="password" className="form-inputs"></input>
+                        <input type="password" 
+                               className="form-inputs"
+                               value={password}
+                               onChange={(e) => setPassword(e.target.value)}></input>
                     </div>
             </form>
                     {/* <div className="remember-me-div">
@@ -60,7 +67,7 @@ function RegisterUser() {
                         <input type="checkbox" className="checkbox"></input>
                     </div> */}
                     <div className="button-div">
-                        <input type="button" value="Register User" className="register-button"></input>
+                        <input type="button" value="Register User" className="register-button" onClick={(handleSubmit)}></input>
                         <p>Already have an account? <Link to='/login-to-siply'>Login here!</Link></p>
                     </div>
             </div>
