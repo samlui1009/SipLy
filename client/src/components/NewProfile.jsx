@@ -122,11 +122,6 @@ function NewProfile() {
                            onChange={(e) => setUserForm({ ...userForm, gender: e.target.value})}></input>
                     <button type="submit" className="next-btn">Next        
                     </button>
-                    {/* <input type="button" className="next-btn"
-                        value="Next" 
-                        onSubmit={(e) => {
-                        handleFirstFormSubmit(e)}}>
-                    </input> */}
                 </form>
                 </div>
                 )}
@@ -134,31 +129,27 @@ function NewProfile() {
                 {!displayUserForm && healthGoalsPanel && (
                     <div className="health-goals-panel">
                         <h3>Great! Now, tell me about your current health goals.</h3>
-                        <form onSubmit={handleHealthGoalsFormSubmit}>
-                            <label>What is the daily intake limit for calories for beverages that you want to set?</label>
+                        <form className="health-goals-form" onSubmit={handleHealthGoalsFormSubmit}>
+                            <label className="form-labels">Set your daily caloric intake limit.</label>
                             <input type="number"
                                    value={healthGoalsForm.maxCalories}
+                                   className="form-inputs"
                                    onChange={(e) => setHealthGoalsForm({ ...healthGoalsForm, maxCalories: e.target.value})}></input>
-                            <label>What is the daily intake limit for sugar (in grams) for beverages that you want to set?</label>
+                            <label className="form-labels">Set your daily sugar intake limit (in grams).</label>
                             <input type="number"
                                    value={healthGoalsForm.maxSugar}
+                                   className="form-inputs"
                                    onChange={(e) => setHealthGoalsForm({ ...healthGoalsForm, maxSugar: e.target.value})}></input>
-                            <label>What is the daily intake limit for caffeine (in milligrams) for beverages that you want to set?</label>
+                            <label className="form-labels">Set your daily caffeine intake limit (in milligrams).</label>
                             <input type="number"
                                    value={healthGoalsForm.maxCaffeine}
+                                   className="form-inputs"
                                    onChange={(e) => setHealthGoalsForm({ ...healthGoalsForm, maxCaffeine: e.target.value})}></input>
                             <button type="submit" 
                                    className="submit-btn">
                                     Submit!
                             </button>
                         </form>
-                        {/* <input type="button" className="submit-btn"
-                               value="Submit!"
-                               onSubmit={(e) => {
-                               handleHealthGoalsFormSubmit(e)}}></input>
-                               {/* Difference between onSubmit vs. onClick => 
-                                onSubmit is primarily used for submission of forms like here 
-                                onClick is for standalone buttons */} */}
                     </div>
                 )}
             </div>
@@ -167,3 +158,7 @@ function NewProfile() {
 }
 
 export default NewProfile
+
+{/* Difference between onSubmit vs. onClick => 
+onSubmit is primarily used for submission of forms like here 
+onClick is for standalone buttons */} 
