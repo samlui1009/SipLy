@@ -33,7 +33,7 @@
     font-family: 'Pixelify Sans', sans-serif;
 }
 
-.next-btn {
+.next-btn, .submit-btn {
     background-color: #45acbc;
     width: 200px;
     border-radius: 25px;
@@ -48,6 +48,6 @@
     opacity: 0.5;
 }
 
-.next-btn:hover {
+.next-btn:hover, .submit-btn:hover {
     opacity: 1;
 }

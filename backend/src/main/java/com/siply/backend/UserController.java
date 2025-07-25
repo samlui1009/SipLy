@@ -82,14 +82,14 @@ public class UserController {
     // This is used to set up the user profile information immediately AFTER registering 
     // with e-mail and password
     @PutMapping("/setup-user/{id}")
-    public ResponseEntity<String> setupUser(@PathVariable Long id, @RequestBody User updatedUser) {
+    public ResponseEntity<User> setupUser(@PathVariable Long id, @RequestBody User updatedUser) {
         return userRepository.findById(id).map(user -> {
             user.setUserName(updatedUser.getName());
             user.setUserGender(updatedUser.getGender());
             user.setUserAge(updatedUser.getAge());
             user.setUserWeight(updatedUser.getWeight());
             userRepository.save(user);
-            return ResponseEntity.ok("New user, " + user.getName() + ", has been created!");
+            return ResponseEntity.ok(user);
         }).orElse(ResponseEntity.notFound().build());
     }
 
