@@ -13,8 +13,47 @@ function CurrentDrinkLog({ setNewBeverageData, passedUserId }) {
 
     const currDate = new Date().toLocaleDateString();
 
-    const handleDeleteBeverage = (beverageID) => {
+    const handleFinalizeLog = () => {
+        fetch(`http://localhost:8080/api/beverage-log/log-complete/${userId}`, {
+            method:'PUT'
+        })
+        .then((res) => {
+            if (!res.ok) {
+                throw new Error("Failed to finalize the users' beverage log");
+            }
+            return res.json();
+        })
+        .then(() => {
+            // This need to be completed as it should then activate BevBot...or should just
+            // Give back a congratulatory message for finishing all hydration attempts? Think about this later
+        })
+        .catch((err) => {
+            console.error("Failed to finalize the users' beverage log", err);
+        })
+    }
 
+    const handleResetLog = () => {
+        fetch(`http://localhost:8080/api/beverage-log/reset-log/${userId}`, {
+            method:'PUT'
+        })
+        .then((res) => {
+            if (!res.ok) {
+                throw new Error("Failed to reset the users' beverage log");
+            }
+            return res.json();
+        })
+        .then(() => {
+            setDailyLog([]);
+            // Should empty the daily log(?)
+            setHasLoggedDrinks(false);
+            // This should now be false, because there is nothing left anymore
+        })
+        .catch((err) => {
+            console.error("Error in resetting the users' beverage log", err);
+        })
+    }
+
+    const handleDeleteBeverage = (beverageID) => {
         fetch(`http://localhost:8080/api/beverage-log/remove-beverage/${userId}/${beverageID}`, {
             method:'DELETE'
         })
@@ -73,8 +112,8 @@ function CurrentDrinkLog({ setNewBeverageData, passedUserId }) {
                 ) : 
                 (<p className="complete-list-alt">Nothing logged yet, but that's okay! Get to hydrating! ( ᵕ༚ᵕ )\̅_̅/̷̚ʾ</p>)}
                 <div className="log-btn-container">
-                    <button className="log-btn">Finalize Your Daily Summary</button>
-                    <button className="log-btn">Reset Your Daily Summary</button>
+                    <button className="log-btn" onClick={(handleFinalizeLog)}>Finalize Your Daily Summary</button>
+                    <button className="log-btn" onClick={(handleResetLog)}>Reset Your Daily Summary</button>
                 </div>
         </div>
     );

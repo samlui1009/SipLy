@@ -122,26 +122,27 @@ public class BeverageLogController {
     }
 
     @PutMapping("/reset-log/{id}")
-    public ResponseEntity<String> resetDailyLog(@PathVariable Long id) {
+    public ResponseEntity<User> resetDailyLog(@PathVariable Long id) {
         return userRepository.findById(id).map(user -> {
             if (user.getBeverageLog() == null) {
                 user.setNewBeverageLog(new BeverageLog());
             }
             user.getBeverageLog().resetLogForNextDay();
             userRepository.save(user);
-            return ResponseEntity.ok("Daily log has been reset");
-        }).orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found"));
+            return ResponseEntity.ok(user);
+        }).orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).body(null));
     }
 
     @PutMapping("/log-complete/{id}")
-    public ResponseEntity<String> finalizeDailyLog(@PathVariable Long id) {
+    public ResponseEntity<User> finalizeDailyLog(@PathVariable Long id) {
         return userRepository.findById(id).map(user -> {
             if (user.getBeverageLog() == null) {
                 user.setNewBeverageLog(new BeverageLog());
             }
             user.getBeverageLog().finishedDailyLog();
             userRepository.save(user);
-            return ResponseEntity.ok("Daily log has been finalized");
-        }).orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found"));
+            return ResponseEntity.ok(user);
+        }).orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).body(null));
     }
 }
+

@@ -20,8 +20,6 @@ function HomePage() {
     // State that is required to be used by different children components for dynamic re-rendering
     const [isThirsty, setIsThirsty] = useState(false);  
 
-
-
     const currentId = localStorage.getItem("userId");
     // const currentEmail = localStorage.getItem("userEmail")
     // The "parent" component that all of the children will need to use 
