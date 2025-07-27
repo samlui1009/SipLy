@@ -36,6 +36,9 @@ public class BeverageLogController {
     @GetMapping("/get-all-beverages/{id}")
     public ResponseEntity<List<Beverage>> getAllBeverages(@PathVariable Long id) {
         return userRepository.findById(id).map(user -> {
+            if (user.getBeverageLog() == null) {
+                user.setNewBeverageLog(new BeverageLog());
+            }
             return ResponseEntity.ok(user.getBeverageLog().getAllBeverages());
         }).orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).body(null));
         // Use Null if we're expected to return back a specific Object type - NOT a String
@@ -45,6 +48,9 @@ public class BeverageLogController {
     @GetMapping("/get-total-number-beverages/{id}")
     public ResponseEntity<Integer> getTotalBeverageNumber(@PathVariable Long id) {
         return userRepository.findById(id).map(user -> {
+            if (user.getBeverageLog() == null) {
+                user.setNewBeverageLog(new BeverageLog());
+            }
             int totalBeverages = user.getBeverageLog().getAllBeverages().size();
             return ResponseEntity.ok(totalBeverages);
         }).orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).body(-1));
@@ -54,6 +60,9 @@ public class BeverageLogController {
     // Maps to POST 
     public ResponseEntity<User> addBeverage(@PathVariable Long userId, @RequestBody Beverage beverage) {
         return userRepository.findById(userId).map(user -> {
+            if (user.getBeverageLog() == null) {
+                user.setNewBeverageLog(new BeverageLog());
+            }
             user.getBeverageLog().addBeverage(beverage);
             userRepository.save(user);
             return ResponseEntity.ok(user);
@@ -66,6 +75,9 @@ public class BeverageLogController {
     // Remove Name is the route that expects a beverage name to be part of the URL
     public ResponseEntity<String> removeBeverage(@PathVariable Long id, @PathVariable Long bevID) {
         return userRepository.findById(id).map(user -> {
+            if (user.getBeverageLog() == null) {
+                user.setNewBeverageLog(new BeverageLog());
+            }
             boolean removed = user.getBeverageLog().removeBeverageById(bevID);
             if (removed) {
                 userRepository.save(user);
@@ -80,6 +92,9 @@ public class BeverageLogController {
     // "Put" - Updating values {}
     public ResponseEntity<String> refillBeverage(@PathVariable Long id, @PathVariable String name, @RequestBody Beverage refillData) {
         return userRepository.findById(id).map(user -> {
+            if (user.getBeverageLog() == null) {
+                user.setNewBeverageLog(new BeverageLog());
+            }
             user.getBeverageLog().refillBeverage(name,
                 refillData.getVolume(),
                 refillData.getCalories(),
@@ -94,6 +109,9 @@ public class BeverageLogController {
     @GetMapping("/all-totals/{id}") 
     public ResponseEntity<Map<String,Integer>> getAllTotals(@PathVariable Long id) {
         return userRepository.findById(id).map(user -> {
+            if (user.getBeverageLog() == null) {
+                user.setNewBeverageLog(new BeverageLog());
+            }
             BeverageLog log = user.getBeverageLog();
             Map<String, Integer> resultsMap = new HashMap<>();
             resultsMap.put("Calories", log.getDailyTotalCalories());
@@ -106,6 +124,9 @@ public class BeverageLogController {
     @PutMapping("/reset-log/{id}")
     public ResponseEntity<String> resetDailyLog(@PathVariable Long id) {
         return userRepository.findById(id).map(user -> {
+            if (user.getBeverageLog() == null) {
+                user.setNewBeverageLog(new BeverageLog());
+            }
             user.getBeverageLog().resetLogForNextDay();
             userRepository.save(user);
             return ResponseEntity.ok("Daily log has been reset");
@@ -115,6 +136,9 @@ public class BeverageLogController {
     @PutMapping("/log-complete/{id}")
     public ResponseEntity<String> finalizeDailyLog(@PathVariable Long id) {
         return userRepository.findById(id).map(user -> {
+            if (user.getBeverageLog() == null) {
+                user.setNewBeverageLog(new BeverageLog());
+            }
             user.getBeverageLog().finishedDailyLog();
             userRepository.save(user);
             return ResponseEntity.ok("Daily log has been finalized");

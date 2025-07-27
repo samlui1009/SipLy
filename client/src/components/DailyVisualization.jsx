@@ -2,8 +2,9 @@ import { useState, useEffect } from 'react';
 import './DailyVisualization.css';
 import { ResponsiveContainer, ComposedChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
 
-function DailyVisualization({setHappinessLevel, setThirstyLevel, newData}) {
+function DailyVisualization({setHappinessLevel, setThirstyLevel, passedUserId, newData}) {
 
+    const userId = passedUserId || localStorage.getItem("userId");
     const [userData, setUserData] = useState([]);
     // Will be utilized later to be put onto the graph as the maximum limits
     // Will be an array, as Recharts expects an array argument
@@ -12,7 +13,7 @@ function DailyVisualization({setHappinessLevel, setThirstyLevel, newData}) {
 
         // console.log("Grabbing total counts");
         // This is running
-        fetch('http://localhost:8080/api/beverage-log/get-total-number-beverages/1')
+        fetch(`http://localhost:8080/api/beverage-log/get-total-number-beverages/${userId}`)
         .then((res) => {
             if (!res.ok) throw new Error("Failed to fetch users' daily beverage count");
             return res.text();
@@ -23,13 +24,13 @@ function DailyVisualization({setHappinessLevel, setThirstyLevel, newData}) {
         })
 
         Promise.all([
-            fetch('http://localhost:8080/api/health-goals/1')
+            fetch(`http://localhost:8080/api/health-goals/${userId}`)
             .then((res) => {
                 if (!res.ok) throw new Error("Failed to fetch users' daily limits");
                 return res.json();
             }),
 
-            fetch('http://localhost:8080/api/beverage-log/all-totals/1')
+            fetch(`http://localhost:8080/api/beverage-log/all-totals/${userId}`)
             .then((res) => {
                 if (!res.ok) throw new Error("Failed to fetch users' daily totals");
                 return res.json();
@@ -56,7 +57,6 @@ function DailyVisualization({setHappinessLevel, setThirstyLevel, newData}) {
                 }
             ];
             setUserData(combinedData);
-
             const counts = combinedData.filter(item => item.totals < item.goal).length
             setHappinessLevel(counts);
             // Verified through console that counts is the correct value
@@ -65,7 +65,7 @@ function DailyVisualization({setHappinessLevel, setThirstyLevel, newData}) {
 
             })            
         .catch(() => console.error("Error in fetching users' daily limits"));
-        },[setHappinessLevel, setThirstyLevel, newData]);
+        },[setHappinessLevel, setThirstyLevel, userId, newData]);
 
     return(
         <div className="daily-viz">

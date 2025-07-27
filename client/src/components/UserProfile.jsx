@@ -3,9 +3,10 @@ import { useState, useEffect } from 'react';
 import './UserProfile.css';
 import Mascot from '../assets/Mascot_Pixel.gif';
 
-function UserProfile() {
+function UserProfile({ passedUserId }) {
 
     const [user, setUser] = useState(null);
+    const userId = passedUserId || localStorage.getItem("userId");
     // We have a "User State" variable that indicates whether
     // a user profile has been loaded yet 
     // Value within useState can be anything - depending on what current needs are 
@@ -27,7 +28,7 @@ function UserProfile() {
         // Prevents default behaviour of a form submission, causing the page to refresh 
         // This is necessary, especially for React projects so it doesn't reload the full thing!
 
-        fetch('http://localhost:8080/api/user/update-user/1', {
+        fetch(`http://localhost:8080/api/user/update-user/${userId}`, {
             method:'PUT',
             // Sends a PUT request to the backend to update the user with ID 1, mapping is from what we worked on prior
             headers: {
@@ -63,7 +64,7 @@ function UserProfile() {
     };
     
     useEffect(() => {
-        fetch('http://localhost:8080/api/user/get-user/1')
+        fetch(`http://localhost:8080/api/user/get-user/${userId}`)
          .then((res) => {
             if (!res.ok) throw new Error("Failed to fetch user");
             return res.json();

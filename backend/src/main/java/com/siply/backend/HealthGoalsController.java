@@ -50,6 +50,10 @@ public class HealthGoalsController {
     @PutMapping("/update-sugar/{id}/{amount}")
     public ResponseEntity<User> updateSugarGoal(@PathVariable Long id, @PathVariable int amount) {
         return userRepository.findById(id).map(user -> {
+            if (user.getHealthGoals() == null) {
+                user.setNewHealthGoals(new HealthGoals(0, 0, 0));
+            }
+            // Temporary for the test users that have "null" HealthGoal objects
             user.getHealthGoals().setMaxSugar(amount);
             userRepository.save(user);
             return ResponseEntity.ok(user);
@@ -59,6 +63,10 @@ public class HealthGoalsController {
     @PutMapping("/update-calories/{id}/{amount}")
     public ResponseEntity<User> updateCalorieGoal(@PathVariable Long id, @PathVariable int amount) {
         return userRepository.findById(id).map(user -> {
+            if (user.getHealthGoals() == null) {
+                user.setNewHealthGoals(new HealthGoals(0, 0, 0));
+            }
+            // Temporary debugging due to NullPointerException
             user.getHealthGoals().setMaxCalories(amount);
             userRepository.save(user);
             return ResponseEntity.ok(user);
@@ -68,6 +76,10 @@ public class HealthGoalsController {
     @PutMapping("/update-caffeine/{id}/{amount}")
     public ResponseEntity<User> updateCaffeineGoal(@PathVariable Long id, @PathVariable int amount) {
         return userRepository.findById(id).map(user -> {
+            if (user.getHealthGoals() == null) {
+                user.setNewHealthGoals(new HealthGoals(0, 0, 0));
+            }
+            // Temporary debugging
             user.getHealthGoals().setMaxCaffeine(amount);
             userRepository.save(user);
             return ResponseEntity.ok(user);

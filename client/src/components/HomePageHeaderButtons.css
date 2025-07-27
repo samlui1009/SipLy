@@ -1,0 +1,21 @@
+.btns-container {
+    display: flex;
+    justify-content: flex-end;
+    gap: 20px;
+    list-style: none;    
+}
+
+.btns {
+    border: none;
+    font-family: 'Pixelify Sans', sans-serif;
+    font-size: 20px;
+    border-radius: 25px;
+    padding: 10px;
+    background-color: azure;
+    cursor: pointer;
+}
+
+.btns:hover {
+    background-color: #6cd1e0;
+    transition: 0.4s ease-in;
+}

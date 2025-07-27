@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 import Header from '../components/Header.jsx';
 import Footer from '../components/Footer.jsx';
@@ -18,17 +18,23 @@ function HomePage() {
     const [refreshData, setRefreshData] = useState(0);
     // State that is required to be used by different children components for dynamic re-rendering
     const [isThirsty, setIsThirsty] = useState(false);  
-  
+
+
+    const currentId = localStorage.getItem("userId");
+    // const currentEmail = localStorage.getItem("userEmail")
+    // The "parent" component that all of the children will need to use 
+
+
     return (
       <>
         <div className="app-container">
           <Header></Header>
           <div className="grid-container">
               <div className="profile-panel">
-                  <UserProfile></UserProfile>
+                  <UserProfile passedUserId={(currentId)}></UserProfile>
               </div>
               <div className="add-bev-panel">
-                  <MainMenu setNewBeverageData={setRefreshData}></MainMenu>
+                  <MainMenu passedUserId={(currentId)} setNewBeverageData={setRefreshData}></MainMenu>
               </div>
               <div className="daily-log-panel">
                   <DailySummary setNewBeverageData={setRefreshData} setDeletedData={setRefreshData}></DailySummary>
@@ -37,10 +43,10 @@ function HomePage() {
                   <HappinessMeter happinessState = {happinessLevel} thirsty = {isThirsty}></HappinessMeter>
               </div>
               <div className="update-goals-panel">
-                  <GoalsMenu setNewHealthGoals={setRefreshData}></GoalsMenu>
+                  <GoalsMenu passedUserId = {(currentId)} setNewHealthGoals={setRefreshData}></GoalsMenu>
               </div>
               <div className="daily-viz-panel">
-                  <DailyViz setHappinessLevel = {setHappinessState} setThirstyLevel = {setIsThirsty} newData = {refreshData}></DailyViz>
+                  <DailyViz passedUserId = {(currentId)} setHappinessLevel = {setHappinessState} setThirstyLevel = {setIsThirsty} newData = {refreshData}></DailyViz>
               </div>
               <div className="bev-bot-panel">
                   <BevBot></BevBot>

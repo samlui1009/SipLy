@@ -4,8 +4,9 @@ import SingleBev from './IndividualBeverage.jsx';
 
 import './CurrentDrinkLog.css';
 
-function CurrentDrinkLog({setNewBeverageData}) {
+function CurrentDrinkLog({ setNewBeverageData, passedUserId }) {
 
+    const userId = passedUserId || localStorage.getItem("userId");
     const [dailyLog, setDailyLog] = useState([]);
     const [hasLoggedDrinks, setHasLoggedDrinks] = useState(false);
     // Moved this logic from IndividualBeverage to HERE, as this is the parent component that will showcase all beverages
@@ -14,7 +15,7 @@ function CurrentDrinkLog({setNewBeverageData}) {
 
     const handleDeleteBeverage = (beverageID) => {
 
-        fetch(`http://localhost:8080/api/beverage-log/remove-beverage/1/${beverageID}`, {
+        fetch(`http://localhost:8080/api/beverage-log/remove-beverage/${userId}/${beverageID}`, {
             method:'DELETE'
         })
         .then((res) => {
@@ -24,7 +25,7 @@ function CurrentDrinkLog({setNewBeverageData}) {
             return res.text();
         })
         .then(() => {
-            fetch('http://localhost:8080/api/beverage-log/get-all-beverages/1')
+            fetch(`http://localhost:8080/api/beverage-log/get-all-beverages/${userId}`)
                 .then(res => res.json())
                 .then(data => {
                     setDailyLog(data);
@@ -38,7 +39,7 @@ function CurrentDrinkLog({setNewBeverageData}) {
     }
 
     useEffect(() => {
-        fetch('http://localhost:8080/api/beverage-log/get-all-beverages/1')
+        fetch(`http://localhost:8080/api/beverage-log/get-all-beverages/${userId}`)
         .then((res) => {
             if (!res.ok) throw new Error("Failed to fetch the users' beverage log");
             return res.json();

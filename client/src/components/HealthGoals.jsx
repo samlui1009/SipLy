@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react';
 import './HealthGoals.css';
 
-function HealthGoals({setNewHealthGoals}) {
+function HealthGoals({ setNewHealthGoals, passedUserId }) {
 
+    const userId = passedUserId || localStorage.getItem("userId");
     const [user, setUser] = useState(null);
     // This is necessary as this should then be connected to the Daily Log/
     // Progress panels to indicate how user is performing for this date
@@ -21,7 +22,7 @@ function HealthGoals({setNewHealthGoals}) {
     const handleCaloriesSubmit = (e) => {
         e.preventDefault();
 
-        fetch(`http://localhost:8080/api/health-goals/update-calories/1/${calories}`, {
+        fetch(`http://localhost:8080/api/health-goals/update-calories/${userId}/${calories}`, {
             method:'PUT',
             headers: {
                 'Content-Type':'application/json',
@@ -35,6 +36,7 @@ function HealthGoals({setNewHealthGoals}) {
             return res.text();
         })
         .then((updatedUser) => {
+            console.log(updatedUser + " retrieved!");
             setCalories("")
             setUser(updatedUser);
             setEditing(false);
@@ -49,7 +51,7 @@ function HealthGoals({setNewHealthGoals}) {
     const handleSugarSubmit = (e) => {
         e.preventDefault();
 
-        fetch(`http://localhost:8080/api/health-goals/update-sugar/1/${sugar}`, {
+        fetch(`http://localhost:8080/api/health-goals/update-sugar/${userId}/${sugar}`, {
             method:'PUT',
             headers: {
                 'Content-Type':'application/json',
@@ -78,7 +80,7 @@ function HealthGoals({setNewHealthGoals}) {
     const handleCaffeineSubmit = (e) => {
         e.preventDefault();
 
-        fetch(`http://localhost:8080/api/health-goals/update-caffeine/1/${caffeine}`, {
+        fetch(`http://localhost:8080/api/health-goals/update-caffeine/${userId}/${caffeine}`, {
             method:'PUT',
             headers: {
                 'Content-Type':'application/json',
@@ -105,14 +107,14 @@ function HealthGoals({setNewHealthGoals}) {
     }
 
     useEffect(() => {
-        fetch('http://localhost:8080/api/health-goals/1')
+        fetch(`http://localhost:8080/api/health-goals/${userId}`)
          .then((res) => {
             if (!res.ok) throw new Error("Failed to fetch user");
             return res.json();
         }) 
         .then((data) => setUser(data))
         .catch(() => console.error("Error in loading the user"));
-    },[]);
+    },[userId]);
     // useEffect - API to return back the health goals for User 1, which is just me
     // Basically, if the response is NOT okay, then we "fail to fetch the user"
 

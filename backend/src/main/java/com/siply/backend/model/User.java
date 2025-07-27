@@ -31,7 +31,9 @@ public class User {
     private BeverageLog bevLog;
 
     public User() {
-        // Generic constructor
+        this.healthGoals = new HealthGoals(0, 0, 0);
+        this.bevLog = new BeverageLog();
+        // Added these temporarily for debugging
     }
 
     public User(String name, int age, int weight, String gender, String email, String pWord) {
@@ -150,5 +152,13 @@ public class User {
     // EFFECTS: Updates the entire HealthGoals JSON object if it changes 
     public void setNewHealthGoals(HealthGoals newGoals) {
         this.healthGoals = newGoals;
+    }
+
+    // setter
+    // MODIFIES: this
+    // EFFECTS: Updates the entire List object of BeverageLog if it changes
+    // More so used to fix NullPointerException error in the controller
+    public void setNewBeverageLog(BeverageLog tempLog) {
+        this.bevLog = tempLog;
     }
 }

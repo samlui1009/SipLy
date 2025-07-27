@@ -2,9 +2,10 @@ import { useState, useEffect } from 'react';
 import { format } from 'date-fns';
 import './MainMenu.css';
 
-function MainMenu({setNewBeverageData}) {
+function MainMenu({ setNewBeverageData, passedUserId }) {
 
     const [user, setUser] = useState(null);
+    const userId = passedUserId || localStorage.getItem("userId");
     // User State variable 
     const [dailyLog, setDailyLog] = useState([]);
     // This will be an array that currently stores nothing as it is new
@@ -17,16 +18,18 @@ function MainMenu({setNewBeverageData}) {
     // States for what we're using
 
     useEffect(() => {
-        fetch('http://localhost:8080/api/beverage-log/get-all-beverages/1')
+        fetch(`http://localhost:8080/api/beverage-log/get-all-beverages/${userId}`)
          .then((res) => {
             if (!res.ok) throw new Error("Failed to fetch beverages");
             return res.json();
          })
          .then((data) => {
+            console.log("Current userId is: " + userId);
+            // For troubleshooting
             setDailyLog(data);
          })
          .catch(() => console.error("Error in loading all beverages"));
-        },[]);
+        },[userId]);
         // Dependency array => Only runs this ONCE
 
     const addWater = (e) => {
@@ -38,7 +41,7 @@ function MainMenu({setNewBeverageData}) {
             caffeine: 0
         }
         // Default behaviour for now
-        fetch('http://localhost:8080/api/beverage-log/add-beverage/1', {
+        fetch(`http://localhost:8080/api/beverage-log/add-beverage/${userId}`, {
             method:'POST',
             headers: {
                 'Content-Type':'application/json',
@@ -68,7 +71,7 @@ function MainMenu({setNewBeverageData}) {
             sugar: 0,
             caffeine: 94.8
         }
-        fetch('http://localhost:8080/api/beverage-log/add-beverage/1', {
+        fetch(`http://localhost:8080/api/beverage-log/add-beverage/${userId}`, {
             method:'POST',
             headers: {
                 'Content-Type':'application/json',
@@ -98,7 +101,7 @@ function MainMenu({setNewBeverageData}) {
             sugar: 0,
             caffeine: 47
         }
-        fetch('http://localhost:8080/api/beverage-log/add-beverage/1', {
+        fetch(`http://localhost:8080/api/beverage-log/add-beverage/${userId}`, {
             method:'POST',
             headers: {
                 'Content-Type':'application/json',
@@ -128,7 +131,7 @@ function MainMenu({setNewBeverageData}) {
             sugar: 12,
             caffeine: 0
         }
-        fetch('http://localhost:8080/api/beverage-log/add-beverage/1', {
+        fetch(`http://localhost:8080/api/beverage-log/add-beverage/${userId}`, {
             method:'POST',
             headers: {
                 'Content-Type':'application/json',
@@ -158,7 +161,7 @@ function MainMenu({setNewBeverageData}) {
             sugar: 23,
             caffeine: 0
         }
-        fetch('http://localhost:8080/api/beverage-log/add-beverage/1', {
+        fetch(`http://localhost:8080/api/beverage-log/add-beverage/${userId}`, {
             method:'POST',
             headers: {
                 'Content-Type':'application/json',
@@ -188,7 +191,7 @@ function MainMenu({setNewBeverageData}) {
             sugar: 39,
             caffeine: 34
         }
-        fetch('http://localhost:8080/api/beverage-log/add-beverage/1', {
+        fetch(`http://localhost:8080/api/beverage-log/add-beverage/${userId}`, {
             method:'POST',
             headers: {
                 'Content-Type':'application/json',
@@ -213,7 +216,7 @@ function MainMenu({setNewBeverageData}) {
     const handleCustomBeverageSubmission = (e) => {
         e.preventDefault();
 
-        fetch('http://localhost:8080/api/beverage-log/add-beverage/1', {
+        fetch(`http://localhost:8080/api/beverage-log/add-beverage/${userId}`, {
             method:'POST',
             headers: {
                 'Content-Type':'application/json',
