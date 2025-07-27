@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 
 import Header from '../components/Header.jsx';
+import HeaderButtons from '../components/HomePageHeaderButtons.jsx';
 import Footer from '../components/Footer.jsx';
 import UserProfile from '../components/UserProfile.jsx';
 import MainMenu from '../components/MainMenu.jsx';
@@ -18,6 +19,7 @@ function HomePage() {
     const [refreshData, setRefreshData] = useState(0);
     // State that is required to be used by different children components for dynamic re-rendering
     const [isThirsty, setIsThirsty] = useState(false);  
+
 
 
     const currentId = localStorage.getItem("userId");

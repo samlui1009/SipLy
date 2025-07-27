@@ -72,6 +72,10 @@ function CurrentDrinkLog({ setNewBeverageData, passedUserId }) {
                 </ul> 
                 ) : 
                 (<p className="complete-list-alt">Nothing logged yet, but that's okay! Get to hydrating! ( ᵕ༚ᵕ )\̅_̅/̷̚ʾ</p>)}
+                <div className="log-btn-container">
+                    <button className="log-btn">Finalize Your Daily Summary</button>
+                    <button className="log-btn">Reset Your Daily Summary</button>
+                </div>
         </div>
     );
 }

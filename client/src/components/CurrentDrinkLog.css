@@ -20,3 +20,28 @@
     padding: 10px;
     margin: 10px;
 }
+
+.log-btn-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding-bottom: 10px;
+}
+
+.log-btn {
+    cursor: pointer;
+    font-family: 'Pixelify Sans', sans-serif;
+    border-radius: 25px;
+    font-size: 20px;
+    background-color: #6cd1e0;
+    border: none;
+    opacity: 1;
+    transition: opacity 0.5s ease;
+    width: 300px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.log-btn:hover {
+    opacity: 0.75;
+}
