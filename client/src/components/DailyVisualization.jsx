@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import './DailyVisualization.css';
 import { ResponsiveContainer, ComposedChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
 
-function DailyVisualization({setHappinessLevel, setThirstyLevel, passedUserId, newData}) {
+function DailyVisualization({setHappinessLevel, setThirstyLevel, passedUserId, newData, resetTrigger}) {
 
     const userId = passedUserId || localStorage.getItem("userId");
     const [userData, setUserData] = useState([]);
@@ -65,7 +65,7 @@ function DailyVisualization({setHappinessLevel, setThirstyLevel, passedUserId, n
 
             })            
         .catch(() => console.error("Error in fetching users' daily limits"));
-        },[setHappinessLevel, setThirstyLevel, userId, newData]);
+        },[setHappinessLevel, setThirstyLevel, userId, newData, resetTrigger]);
 
     return(
         <div className="daily-viz">

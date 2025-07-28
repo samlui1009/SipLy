@@ -3,14 +3,15 @@ import { IoMdCheckmarkCircle } from "react-icons/io";
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 // Following documentation
-import Confetti from 'react-confetti-explosion';
+// import Confetti from 'react-confetti-explosion';
+// Don't use the Confetti here - use it in BevBot (?)
 
 import SingleBev from './IndividualBeverage.jsx';
 // Import required to be used later on
 
 import './CurrentDrinkLog.css';
 
-function CurrentDrinkLog({ setNewBeverageData, passedUserId }) {
+function CurrentDrinkLog({ setNewBeverageData, passedUserId, setResetTrigger }) {
 
     const MySwal = withReactContent(Swal);
 
@@ -20,6 +21,8 @@ function CurrentDrinkLog({ setNewBeverageData, passedUserId }) {
     // Initially, the log should NOT be finalized
     const [hasLoggedDrinks, setHasLoggedDrinks] = useState(false);
     // Moved this logic from IndividualBeverage to HERE, as this is the parent component that will showcase all beverages
+    const [disableFinalizeButton, setDisableFinalizeButton] = useState(false);
+    // 
 
     const currDate = new Date().toLocaleDateString();
 
@@ -38,11 +41,33 @@ function CurrentDrinkLog({ setNewBeverageData, passedUserId }) {
         .then((result) => {
             if (result.isConfirmed) {
                 Swal.fire("Finalized!", "", "success");
+                setDisableFinalizeButton(true);
                 handleFinalizeLog();
                 // Call the method
             }
         })
     }
+
+    const handleResetLogPrompt = () => {
+        MySwal.fire({
+            title: "Are you sure you wish to reset your daily log?",
+            text: "Any logged beverages will not be erased permanently!",
+            icon: "warning",
+            showCancelButton: true,
+            showConfirmButton: true,
+            cancelButtonText: "Cancel",
+            confirmButtonText: "Yes, reset for a new day!",
+            confirmButtonColor: "#78c1a3",
+            cancelButtonColor: "#FF8D7B"
+        })
+        .then((result) => {
+            if (result.isConfirmed) {
+                Swal.fire("Log reset!", "", "success");
+                handleResetLog();
+                // Call the method
+            }
+        }
+    )}
 
     const handleFinalizeLog = () => {
         fetch(`http://localhost:8080/api/beverage-log/log-complete/${userId}`, {
@@ -75,16 +100,22 @@ function CurrentDrinkLog({ setNewBeverageData, passedUserId }) {
         .then(() => {
             setDailyLog([]);
             // Should empty the daily log(?)
+            setFinalizedLog(false);
+            setDisableFinalizeButton(false);
+            setNewBeverageData(prev => prev + 1);
+            // Ensures that there is NO beverage data at all
+            setResetTrigger(prev => prev + 1);
             setHasLoggedDrinks(false);
             // This should now be false, because there is nothing left anymore
-            setFinalizedLog(false);
+            // console.log("Beverage log cleared!");
+            // For troubleshooting - This is working YAY :D
             // This should also be false, because we're resetting the log for a "new day"
         })
         .catch((err) => {
             console.error("Error in resetting the users' beverage log", err);
         })
     }
-    // Fix reset LATER!
+    // Generally fixed - for now, but need to ensure that ProgressBar and DailyVisualization actually reflects this clearing of data
 
     const handleDeleteBeverage = (beverageID) => {
         fetch(`http://localhost:8080/api/beverage-log/remove-beverage/${userId}/${beverageID}`, {
@@ -147,16 +178,17 @@ function CurrentDrinkLog({ setNewBeverageData, passedUserId }) {
                 
                 {finalizedLog && (
                     <div className="success-container">
-                        <Confetti
-                            numberOfPieces = {50}/>
+                        {/* <Confetti
+                            numberOfPieces = {50}/> */}
+                            {/* Temporarily removed to be put elsewhere */}
                         <IoMdCheckmarkCircle className="checkmark"></IoMdCheckmarkCircle><p className="statement">Success! Log finalized for {currDate}. No further edits can be made.</p>
                     </div>
                 )}
                 {/* Conditional "component" that should only show when the user has clicked "Finalize" */}
 
                 <div className="log-btn-container">
-                    <button className="log-btn" onClick={(handleFinalizeLogPrompt)}>Finalize Your Daily Summary</button>
-                    <button className="log-btn" onClick={(handleResetLog)}>Reset Your Daily Summary</button>
+                    <button className="log-btn" disabled={disableFinalizeButton} onClick={(handleFinalizeLogPrompt)}>Finalize Your Daily Summary</button>
+                    <button className="log-btn" onClick={(handleResetLogPrompt)}>Reset Your Daily Summary</button>
                 </div>
         </div>
     );

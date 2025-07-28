@@ -104,11 +104,13 @@ public class BeverageLog {
     // day)
     public void resetLogForNextDay() {
         if (this.getDailyStatus() == true) {
-            this.dailyBeverages = new ArrayList<>();
+            this.dailyBeverages.clear();
+            // Hopefully this works (?)
             this.status = false;
             this.totalCaffeine = 0;
             this.totalCalories = 0;
             this.totalSugar = 0;
+            // Resets everything back
         }
     }
 

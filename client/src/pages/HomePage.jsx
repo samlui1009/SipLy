@@ -18,7 +18,8 @@ function HomePage() {
     const [happinessLevel, setHappinessState] = useState(0);
     const [refreshData, setRefreshData] = useState(0);
     // State that is required to be used by different children components for dynamic re-rendering
-    const [isThirsty, setIsThirsty] = useState(false);  
+    const [isThirsty, setIsThirsty] = useState(false); 
+    const [resetTrigger, setResetTrigger] = useState(0); 
 
     const currentId = localStorage.getItem("userId");
     // const currentEmail = localStorage.getItem("userEmail")
@@ -37,7 +38,7 @@ function HomePage() {
                   <MainMenu passedUserId={(currentId)} setNewBeverageData={setRefreshData}></MainMenu>
               </div>
               <div className="daily-log-panel">
-                  <DailySummary setNewBeverageData={setRefreshData} setDeletedData={setRefreshData}></DailySummary>
+                  <DailySummary setNewBeverageData={setRefreshData} setDeletedData={setRefreshData} setResetTrigger={setResetTrigger}></DailySummary>
               </div>
               <div className="happiness-panel">
                   <HappinessMeter happinessState = {happinessLevel} thirsty = {isThirsty}></HappinessMeter>
@@ -46,7 +47,11 @@ function HomePage() {
                   <GoalsMenu passedUserId = {(currentId)} setNewHealthGoals={setRefreshData}></GoalsMenu>
               </div>
               <div className="daily-viz-panel">
-                  <DailyViz passedUserId = {(currentId)} setHappinessLevel = {setHappinessState} setThirstyLevel = {setIsThirsty} newData = {refreshData}></DailyViz>
+                  <DailyViz passedUserId = {(currentId)} 
+                            setHappinessLevel = {setHappinessState} 
+                            setThirstyLevel = {setIsThirsty} 
+                            newData = {refreshData}
+                            resetTrigger = {resetTrigger}></DailyViz>
               </div>
               <div className="bev-bot-panel">
                   <BevBot></BevBot>

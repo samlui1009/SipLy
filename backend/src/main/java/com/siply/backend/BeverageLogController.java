@@ -105,6 +105,7 @@ public class BeverageLogController {
             return ResponseEntity.ok("Successfully refilled: " + name);
         }).orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found"));
     }
+    // Likely can remove later on (?)
 
     @GetMapping("/all-totals/{id}") 
     public ResponseEntity<Map<String,Integer>> getAllTotals(@PathVariable Long id) {
