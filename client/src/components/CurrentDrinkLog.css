@@ -45,3 +45,22 @@
 .log-btn:hover {
     opacity: 0.75;
 }
+
+.statement {
+    font-size: 16px;
+}
+
+.checkmark {
+    vertical-align:middle;
+    font-size: 25px;
+}
+
+.swal2-popup {
+    font-size: 15px;
+    font-family: "Pixelify Sans", sans-serif;
+}
+/* https://stackoverflow.com/questions/57079469/how-to-change-font-family-of-sweetalert */
+
+.swal2-styled {
+    font-family: "Pixelify Sans", sans-serif;
+}

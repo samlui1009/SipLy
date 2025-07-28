@@ -1,4 +1,10 @@
 import { React, useState, useEffect } from 'react';
+import { IoMdCheckmarkCircle } from "react-icons/io";
+import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
+// Following documentation
+import Confetti from 'react-confetti-explosion';
+
 import SingleBev from './IndividualBeverage.jsx';
 // Import required to be used later on
 
@@ -6,12 +12,37 @@ import './CurrentDrinkLog.css';
 
 function CurrentDrinkLog({ setNewBeverageData, passedUserId }) {
 
+    const MySwal = withReactContent(Swal);
+
     const userId = passedUserId || localStorage.getItem("userId");
     const [dailyLog, setDailyLog] = useState([]);
+    const [finalizedLog, setFinalizedLog] = useState(false);
+    // Initially, the log should NOT be finalized
     const [hasLoggedDrinks, setHasLoggedDrinks] = useState(false);
     // Moved this logic from IndividualBeverage to HERE, as this is the parent component that will showcase all beverages
 
     const currDate = new Date().toLocaleDateString();
+
+    const handleFinalizeLogPrompt = () => {
+        MySwal.fire({
+            title: "Are you sure you wish to finalize your daily log?",
+            text: "You will not be able to make any more edits after this!",
+            icon: "warning",
+            showCancelButton: true,
+            showConfirmButton: true,
+            cancelButtonText: "Cancel",
+            confirmButtonText: "Yes, finalize!",
+            confirmButtonColor: "#78c1a3",
+            cancelButtonColor: "#FF8D7B"
+        })
+        .then((result) => {
+            if (result.isConfirmed) {
+                Swal.fire("Finalized!", "", "success");
+                handleFinalizeLog();
+                // Call the method
+            }
+        })
+    }
 
     const handleFinalizeLog = () => {
         fetch(`http://localhost:8080/api/beverage-log/log-complete/${userId}`, {
@@ -24,8 +55,7 @@ function CurrentDrinkLog({ setNewBeverageData, passedUserId }) {
             return res.json();
         })
         .then(() => {
-            // This need to be completed as it should then activate BevBot...or should just
-            // Give back a congratulatory message for finishing all hydration attempts? Think about this later
+            setFinalizedLog(true);
         })
         .catch((err) => {
             console.error("Failed to finalize the users' beverage log", err);
@@ -47,11 +77,14 @@ function CurrentDrinkLog({ setNewBeverageData, passedUserId }) {
             // Should empty the daily log(?)
             setHasLoggedDrinks(false);
             // This should now be false, because there is nothing left anymore
+            setFinalizedLog(false);
+            // This should also be false, because we're resetting the log for a "new day"
         })
         .catch((err) => {
             console.error("Error in resetting the users' beverage log", err);
         })
     }
+    // Fix reset LATER!
 
     const handleDeleteBeverage = (beverageID) => {
         fetch(`http://localhost:8080/api/beverage-log/remove-beverage/${userId}/${beverageID}`, {
@@ -111,8 +144,18 @@ function CurrentDrinkLog({ setNewBeverageData, passedUserId }) {
                 </ul> 
                 ) : 
                 (<p className="complete-list-alt">Nothing logged yet, but that's okay! Get to hydrating! ( ᵕ༚ᵕ )\̅_̅/̷̚ʾ</p>)}
+                
+                {finalizedLog && (
+                    <div className="success-container">
+                        <Confetti
+                            numberOfPieces = {50}/>
+                        <IoMdCheckmarkCircle className="checkmark"></IoMdCheckmarkCircle><p className="statement">Success! Log finalized for {currDate}. No further edits can be made.</p>
+                    </div>
+                )}
+                {/* Conditional "component" that should only show when the user has clicked "Finalize" */}
+
                 <div className="log-btn-container">
-                    <button className="log-btn" onClick={(handleFinalizeLog)}>Finalize Your Daily Summary</button>
+                    <button className="log-btn" onClick={(handleFinalizeLogPrompt)}>Finalize Your Daily Summary</button>
                     <button className="log-btn" onClick={(handleResetLog)}>Reset Your Daily Summary</button>
                 </div>
         </div>
