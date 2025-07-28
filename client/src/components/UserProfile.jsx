@@ -71,7 +71,7 @@ function UserProfile({ passedUserId }) {
         }) 
         .then((data) => setUser(data))
         .catch(() => console.error("Error in loading the user"));
-    },[]);
+    },[userId]);
     // This entire block of code utilizes the API I wrote to fetch back the user
     // Res = Response, so I presume it's okay, if the response is "not ok", then we'll throw a new error
     // Otherwise, return the JSON object that is stored at User 1
@@ -87,7 +87,7 @@ function UserProfile({ passedUserId }) {
                         <li>Name: {user.name} </li>
                         <li>Age: {user.age}</li>
                         <li>Weight (Lbs): {user.weight}</li>
-                        <li>Gender: {user.gender}</li>
+                        <li>Pronouns: {user.gender}</li>
                         <button className="edit-button" onClick={() => setEditing(true)}>Edit Profile</button>
                     </div>
                 )}
@@ -111,7 +111,7 @@ function UserProfile({ passedUserId }) {
                                    value={form.weight}
                                    onChange={(e) => setForm({ ...form, weight: e.target.value})}
                             />
-                            <label>Updated Gender: </label>
+                            <label>Updated Pronouns: </label>
                             <input type="text"
                                    value={form.gender}
                                    onChange={(e) => setForm({ ...form, gender: e.target.value})}

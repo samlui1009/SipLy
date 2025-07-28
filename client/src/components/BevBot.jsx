@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { GoogleGenAI } from "@google/genai";
 // Import as per the documentation
 
@@ -6,17 +7,8 @@ import Bot from '../assets/BevBot.gif';
 
 function BevBot() {
 
-    // const ai = new GoogleGenAI({});
-
-    // async function main() {
-    //     const response = await ai.models.generateContent({
-    //         model: "gemini-2.5-flash",
-    //         contents: "Say hello!",
-    //     });
-    //     console.log(response.text);
-    // }
-
-    // main();
+    const [showResponse, setShowResponse] = useState("");
+    // Use this to replace the instructions with a proper response
 
     // I need to include the API key
 

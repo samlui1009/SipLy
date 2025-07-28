@@ -9,6 +9,10 @@
     align-items: center;
     font-family: 'Pixelify Sans', sans-serif;
     font-size: 20px;
+    height: 300px;
+
+    /* overflow-y: scroll;
+    max-height: 300px; */
 }
 
 .chat-instructions {

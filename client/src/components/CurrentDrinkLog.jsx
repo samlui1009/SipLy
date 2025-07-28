@@ -51,7 +51,7 @@ function CurrentDrinkLog({ setNewBeverageData, passedUserId, setResetTrigger }) 
     const handleResetLogPrompt = () => {
         MySwal.fire({
             title: "Are you sure you wish to reset your daily log?",
-            text: "Any logged beverages will not be erased permanently!",
+            text: "Any logged beverages will be erased permanently!",
             icon: "warning",
             showCancelButton: true,
             showConfirmButton: true,
