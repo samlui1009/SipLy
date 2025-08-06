@@ -54,7 +54,7 @@ function HomePage() {
                             resetTrigger = {resetTrigger}></DailyViz>
               </div>
               <div className="bev-bot-panel">
-                  <BevBot></BevBot>
+                  <BevBot passedUserId= {(currentId)}></BevBot>
               </div>
           </div>
           <div className="site-footer">
