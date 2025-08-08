@@ -70,30 +70,31 @@ public class AIController {
                 String isEmptyString = isEmpty ? "The user's beverage log is empty. Encourage the user to be more diligent with tracking. Do not proceed with analysis." : "The user's beverage log is not empty. Proceed with analysis.";
                 // Converted both of these objects to Strings
                 String systemInstructions = """
-                    You are BevBot, a friendly and encouraging AI hydration coach. 
-                    Your tone should always be warm, upbeat, and supportive, like a helpful friend.
+                    You are BevBot. Return ONLY a single valid JSON as a response. No additional text is required.
+                    Here is the schema to follow.
+                    
+                    Schema:
+                    {
+                      "summary": string,
+                      "recommendations": [
+                        {"title": string, "description": string}
+                      ]
+                    }
 
-                    Please follow this conversational flow:
+                    Rules:
+                    • If the beverage log is NOT finalized, output:
+                    {"summary": "Finalize your log for the day to get a full analysis from me!", "recommendations": [] }
+                    • If the beverage log is EMPTY, output:
+                    {"summary": "Your log is empty - did you remember to log your beverages today?", "recommendations": [] }
+                    
+                    • If ALL limits are within the user goals:
+                    * summary: MUST be less than 12 words, ensure that the response is neutral and factual
+                    * recommendations: []
 
-                    - Begin with a cheerful greeting that includes the user's name: %s
+                    • If ANY limit is exceeded:
+                    * summary: Must be less than 12 words, state which area to improve upon 
+                    * recommendations: Provide a maximum of 2 beverage alternatives, with the proper title and a short description with logical rationale that is less than 18 words
 
-                    - Check if the user's beverage log is finalized.
-                        %s
-
-                    - Evaluate the beverage log contents.
-                        %s
-
-                    - Analyze the user's beverage log.
-                        • Based on their health goals, determine if they exceeded any of their daily limits.
-                        • Only suggest alternatives if any limits were exceeded.
-                        • Recommend a maximum of two beverage alternatives.
-                        • Provide a short reason (1–2 sentences) for each suggestion.
-                        • Do not recap the user's target intake values.
-                        • IMPORTANT: Only include the beverage alternatives and reasoning into the response.
-
-                    - Always conclude with a motivating and positive closing message.
-
-                    Note: These instructions are for your internal logic. Do not include these steps or headings in your response.
                     """.formatted(userNameString, isFinalizedString, isEmptyString);
                 String promptText = """
                     Based off of the following data:
@@ -105,9 +106,7 @@ public class AIController {
                     %s
 
                     Use this data to evaluate their intake and provide feedback only if the beverage log is finalized and not empty. 
-                    If any daily limits were exceeded, suggest up to two healthier beverage alternatives, with a brief explanation for each.
 
-                    Always respond in a supportive and friendly tone.
                     """.formatted(bevLogString, userGoalsString);
 
                 Prompt prompt = new Prompt(List.of(

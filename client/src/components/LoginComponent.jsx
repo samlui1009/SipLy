@@ -25,7 +25,11 @@ function LoginComponent() {
         })
         .then((res) => {
             if (!res.ok) {
-                throw new Error("Failed to log the user in!");
+                if (res.status === 401) {
+                    alert("Incorrect password. Please try again!");
+                } else {
+                    alert("Login failure.");
+                }
             }
             return res.json();
         })

@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&display=swap');
 
-.bev-bot-container {
+.bev-bot-content, .bev-bot-response {
     display: flex;
     border: 2.5px solid #b796e8;
     background-color: azure;
@@ -11,8 +11,8 @@
     font-size: 20px;
     height: 300px;
 
-    /* overflow-y: scroll;
-    max-height: 300px; */
+    overflow-y: scroll;
+    max-height: 250px;
 }
 
 .chat-instructions {
@@ -25,7 +25,7 @@
     height: 100px;
 }
 
-.chat-button {
+.chat-button, .reset-button {
     font-family: 'Pixelify Sans', sans-serif;
     font-size: 20px;
     border-radius: 25px;
@@ -39,4 +39,10 @@
 
 .chat-button:hover {
     opacity: 0.75;
+}
+
+.bot-reply {
+    font-size: 15px;
+    text-align: center;
+    
 }
